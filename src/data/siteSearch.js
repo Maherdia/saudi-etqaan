@@ -1,32 +1,8 @@
+import { getLocalizedValue } from '../utils/localization';
+
 import { companies } from './content';
 import projects from './projects';
 import { productDivisions } from './products';
-
-export function getLocalizedValue(
-    value,
-    lang = 'en',
-) {
-    if (!value) {
-        return '';
-    }
-
-    if (typeof value === 'string') {
-        return value;
-    }
-
-    if (
-        typeof value === 'object' &&
-        !Array.isArray(value)
-    ) {
-        return (
-            value[lang] ??
-            value.en ??
-            ''
-        );
-    }
-
-    return String(value);
-}
 
 export function normalizeSearchText(
     value = '',

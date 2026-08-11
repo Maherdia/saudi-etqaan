@@ -1,3 +1,5 @@
+import { getLocalizedValue } from '../../../utils/localization';
+
 import {
     useEffect,
     useMemo,
@@ -17,25 +19,6 @@ import './ProductContent.css';
 /* =========================================================
    LOCALIZATION
    ========================================================= */
-
-function getLocalizedValue(
-    value,
-    lang,
-) {
-    if (
-        value &&
-        typeof value === 'object' &&
-        !Array.isArray(value)
-    ) {
-        return (
-            value[lang] ??
-            value.en ??
-            ''
-        );
-    }
-
-    return value ?? '';
-}
 
 function getSectionContent(
     division,

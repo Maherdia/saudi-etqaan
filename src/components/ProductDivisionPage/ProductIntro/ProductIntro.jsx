@@ -1,3 +1,5 @@
+import { getLocalizedValue } from '../../../utils/localization';
+
 import {
     ProductPhoto,
 } from '../ProductMedia/ProductMedia';
@@ -7,25 +9,6 @@ import './ProductIntro.css';
 /* =========================================================
    LOCALIZATION
    ========================================================= */
-
-function getLocalizedValue(
-    value,
-    lang,
-) {
-    if (
-        value &&
-        typeof value === 'object' &&
-        !Array.isArray(value)
-    ) {
-        return (
-            value[lang] ??
-            value.en ??
-            ''
-        );
-    }
-
-    return value ?? '';
-}
 
 /* =========================================================
    SECTION HEADING

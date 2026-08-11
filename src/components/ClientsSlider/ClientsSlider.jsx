@@ -1,16 +1,6 @@
+import { getLocalizedValue } from '../../utils/localization';
+
 import './ClientsSlider.css';
-
-function getLocalizedValue(value, lang) {
-    if (
-        value &&
-        typeof value === 'object' &&
-        !Array.isArray(value)
-    ) {
-        return value[lang] ?? value.en ?? '';
-    }
-
-    return value ?? '';
-}
 
 const defaultContent = {
     title: {

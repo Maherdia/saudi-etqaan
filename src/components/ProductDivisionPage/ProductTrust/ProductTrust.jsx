@@ -1,3 +1,5 @@
+import { getLocalizedValue } from '../../../utils/localization';
+
 import ClientsSlider from '../../ClientsSlider/ClientsSlider';
 import LogoFrame from '../../LogoFrame/LogoFrame';
 
@@ -6,25 +8,6 @@ import './ProductTrust.css';
 /* =========================================================
    LOCALIZATION
    ========================================================= */
-
-function getLocalizedValue(
-    value,
-    lang,
-) {
-    if (
-        value &&
-        typeof value === 'object' &&
-        !Array.isArray(value)
-    ) {
-        return (
-            value[lang] ??
-            value.en ??
-            ''
-        );
-    }
-
-    return value ?? '';
-}
 
 function getSectionContent(
     division,
@@ -261,7 +244,7 @@ export default function ProductTrust({
     const partnersTitle =
         getSectionContent(
             division,
-            'partnersSection',  
+            'partnersSection',
             'title',
             lang,
             isArabic
