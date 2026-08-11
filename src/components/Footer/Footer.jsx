@@ -7,6 +7,10 @@ import darkLogo from '../../assets/logos/etqaan-full.webp';
 import lightLogo from '../../assets/logos/etqaan-full-light.webp';
 import mark from '../../assets/logos/etqaan-mark.webp';
 
+import {
+    getLocalizedPath,
+} from '../../data/routes';
+
 import './Footer.css';
 
 const MAPS_URL =
@@ -97,7 +101,7 @@ export default function Footer() {
                 <div className="footer-top">
                     <Link
                         className="footer-brand"
-                        to="/"
+                        to={getLocalizedPath('/', lang)}
                         aria-label={
                             content.company
                         }
@@ -111,7 +115,7 @@ export default function Footer() {
                     <div className="footer-actions">
                         <Link
                             className="footer-cta"
-                            to="/contact"
+                            to={getLocalizedPath('/contact', lang)}
                         >
                             <span>
                                 {content.cta}
@@ -129,12 +133,12 @@ export default function Footer() {
                         className="footer-mega-nav"
                         aria-label="Footer"
                     >
-                        <Link to="/">
+                        <Link to={getLocalizedPath('/', lang)}>
                             {content.home}
                         </Link>
 
                         <a
-                            href="/products/sanitary"
+                            href={getLocalizedPath('/products/sanitary', lang)}
                             onClick={
                                 openProductsMenu
                             }
@@ -147,19 +151,19 @@ export default function Footer() {
                             }
                         </a>
 
-                        <Link to="/projects">
+                        <Link to={getLocalizedPath('/projects', lang)}>
                             {content.projects}
                         </Link>
 
-                        <Link to="/companies">
+                        <Link to={getLocalizedPath('/companies', lang)}>
                             {content.companies}
                         </Link>
 
-                        <Link to="/contact">
+                        <Link to={getLocalizedPath('/contact', lang)}>
                             {content.contact}
                         </Link>
 
-                        <Link to="/about">
+                        <Link to={getLocalizedPath('/about', lang)}>
                             {content.about}
                         </Link>
                     </nav>

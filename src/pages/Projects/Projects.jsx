@@ -27,6 +27,10 @@ import projects, {
     projectSectors,
 } from '../../data/projects';
 
+import {
+    getLocalizedPath,
+} from '../../data/routes';
+
 import './Projects.css';
 
 const INITIAL_LIMIT = 20;
@@ -741,7 +745,7 @@ export default function Projects() {
                                 : 'Connect with the appropriate team to discuss products, systems, technical requirements, and project scope.'}
                         </p>
 
-                        <Link to="/contact">
+                        <Link to={getLocalizedPath('/contact', lang)}>
                             <span>
                                 {isArabic
                                     ? 'ناقش مشروعك'

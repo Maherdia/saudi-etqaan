@@ -21,6 +21,7 @@ import {
 } from 'vite';
 
 import {
+    getLanguageFromPath,
     NOT_FOUND_PATH,
     prerenderRoutes,
 } from '../src/data/routes.js';
@@ -152,6 +153,22 @@ async function preparePage(
         {
             timeout:
                 15000,
+        },
+    );
+
+    const expectedLocale =
+        getLanguageFromPath(
+            route,
+        );
+
+    await page.waitForFunction(
+        locale =>
+            document.documentElement.lang === locale &&
+            document.documentElement.dir === (locale === 'ar' ? 'rtl' : 'ltr'),
+        expectedLocale,
+        {
+            timeout:
+                10000,
         },
     );
 
@@ -294,13 +311,10 @@ async function run() {
                     true,
             });
 
-        for (
-            const route of
-            prerenderRoutes
-        ) {
+        for (const route of prerenderRoutes) {
             await prerenderRoute(
                 browser,
-                route,
+                route.path,
             );
         }
 

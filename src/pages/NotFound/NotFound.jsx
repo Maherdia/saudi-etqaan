@@ -12,6 +12,10 @@ import {
     useApp,
 } from '../../context/AppContext';
 
+import {
+    getLocalizedPath,
+} from '../../data/routes';
+
 import './NotFound.css';
 
 export default function NotFound() {
@@ -64,7 +68,7 @@ export default function NotFound() {
 
                 <div className="not-found-actions">
                     <Link
-                        to="/"
+                        to={getLocalizedPath('/', lang)}
                         className="not-found-primary"
                     >
                         <FiHome
@@ -77,7 +81,7 @@ export default function NotFound() {
                     </Link>
 
                     <Link
-                        to="/products/hardware"
+                        to={getLocalizedPath('/products/hardware', lang)}
                         className="not-found-secondary"
                     >
                         {isArabic ? (

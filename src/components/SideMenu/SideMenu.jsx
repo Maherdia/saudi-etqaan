@@ -28,6 +28,11 @@ import {
   searchSiteItems,
 } from '../../data/siteSearch';
 
+import {
+  getLocalizedPath,
+  stripLocalePrefix,
+} from '../../data/routes';
+
 import './SideMenu.css';
 
 const productDivisions = productNavigation;
@@ -60,7 +65,9 @@ export default function SideMenu({
   ] = useState('');
 
   const isProductsRoute =
-    location.pathname.startsWith(
+    stripLocalePrefix(
+      location.pathname,
+    ).startsWith(
       '/products',
     );
 
@@ -222,7 +229,7 @@ export default function SideMenu({
     return (
       <NavLink
         key={link.path}
-        to={link.path}
+        to={getLocalizedPath(link.path, lang)}
         end={link.end}
         onClick={
           onClose
@@ -505,7 +512,7 @@ export default function SideMenu({
                         result.id
                       }
                       to={
-                        result.path
+                        getLocalizedPath(result.path, lang)
                       }
                       onClick={
                         onClose
@@ -606,7 +613,7 @@ export default function SideMenu({
                 <NavLink
                   className="side-menu-product-division-title"
                   to={
-                    divisionItem.path
+                    getLocalizedPath(divisionItem.path, lang)
                   }
                   onClick={
                     onClose
@@ -645,7 +652,7 @@ export default function SideMenu({
                         key={
                           product.slug
                         }
-                        to={`${divisionItem.path}#${product.slug}`}
+                        to={`${getLocalizedPath(divisionItem.path, lang)}#${product.slug}`}
                         onClick={
                           onClose
                         }

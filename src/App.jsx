@@ -26,7 +26,8 @@ function AppContent() {
   } = useLocation();
 
   const showDecorativeMark =
-    pathname !== '/';
+    pathname !== '/' &&
+    pathname !== '/ar';
 
 
   useLayoutEffect(() => {

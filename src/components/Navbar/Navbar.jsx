@@ -22,6 +22,10 @@ import SideMenu from '../SideMenu/SideMenu';
 
 import Logo from '../../assets/logos/etqaan-mark.webp';
 
+import {
+  getLocalizedPath,
+} from '../../data/routes';
+
 import './Navbar.css';
 
 export default function Navbar() {
@@ -295,7 +299,7 @@ export default function Navbar() {
       >
         <Link
           className="site-brand"
-          to="/"
+          to={getLocalizedPath('/', lang)}
           aria-label={
             isArabic
               ? 'الصفحة الرئيسية لشركة الإتقان السعودية'

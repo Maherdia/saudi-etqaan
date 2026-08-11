@@ -29,6 +29,10 @@ import mepImage from '../../assets/logos/mep.webp';
 
 import useRevealOnScroll from '../../hooks/useRevealOnScroll';
 
+import {
+    getLocalizedPath,
+} from '../../data/routes';
+
 import './Home.css';
 
 const capabilityImages = {
@@ -240,7 +244,7 @@ export default function Home() {
 
                             <Link
                                 className="home-about-link"
-                                to="/about"
+                                to={getLocalizedPath('/about', lang)}
                             >
                                 <span>
                                     {
@@ -323,7 +327,7 @@ export default function Home() {
                                     }
                                     className={`home-capability-card capability-${division.id}`}
                                     to={
-                                        division.path
+                                        getLocalizedPath(division.path, lang)
                                     }
                                     data-reveal
                                     style={{
@@ -497,7 +501,7 @@ export default function Home() {
                                     }
                                 </p>
 
-                                <Link to="/companies">
+                                <Link to={getLocalizedPath('/companies', lang)}>
                                     <span>
                                         {
                                             content.discover
@@ -517,7 +521,7 @@ export default function Home() {
 
                 <Link
                     className="home-companies-link"
-                    to="/companies"
+                    to={getLocalizedPath('/companies', lang)}
                 >
                     <span>
                         {

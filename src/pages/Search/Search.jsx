@@ -22,6 +22,10 @@ import {
     searchSiteItems,
 } from '../../data/siteSearch';
 
+import {
+    getLocalizedPath,
+} from '../../data/routes';
+
 import './Search.css';
 
 export default function Search() {
@@ -183,7 +187,7 @@ export default function Search() {
                                             result.id
                                         }
                                         to={
-                                            result.path
+                                            getLocalizedPath(result.path, lang)
                                         }
                                     >
                                         <div className="search-result-card-top">
