@@ -8,91 +8,58 @@ import {
 
 import {
     clientRenderedRoutes,
+    prerenderRoutes,
     SITE_URL,
     sitemapRoutes,
 } from '../src/data/routes.js';
 
 function escapeXml(value) {
     return value
-        .replace(
-            /&/g,
-            '&amp;',
-        )
-        .replace(
-            /</g,
-            '&lt;',
-        )
-        .replace(
-            />/g,
-            '&gt;',
-        )
-        .replace(
-            /"/g,
-            '&quot;',
-        )
-        .replace(
-            /'/g,
-            '&apos;',
-        );
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+}
+
+function absoluteUrl(path) {
+    return path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`;
 }
 
 function createSitemap() {
-    const urls =
-        sitemapRoutes
-            .map(route => {
-                const url =
-                    route.path === '/'
-                        ? `${SITE_URL}/`
-                        : `${SITE_URL}${route.path}`;
-
-                return `    <url>
-        <loc>${escapeXml(url)}</loc>
+    const urls = sitemapRoutes
+        .map(route => `    <url>
+        <loc>${escapeXml(absoluteUrl(route.path))}</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="${escapeXml(absoluteUrl(route.seo.alternates.en))}" />
+        <xhtml:link rel="alternate" hreflang="ar" href="${escapeXml(absoluteUrl(route.seo.alternates.ar))}" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(absoluteUrl(route.seo.alternates.xDefault))}" />
         <changefreq>${route.sitemap.changefreq}</changefreq>
         <priority>${route.sitemap.priority}</priority>
-    </url>`;
-            })
-            .join('\n\n');
+    </url>`)
+        .join('\n\n');
 
     return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
 ${urls}
 </urlset>
 `;
 }
 
-function pathToRewritePattern(
-    path,
-) {
+function pathToRewritePattern(path) {
     return path
-        .replace(
-            /^\/+|\/+$/g,
-            '',
-        )
-        .replace(
-            /[.*+?^${}()|[\]\\]/g,
-            '\\$&',
-        );
+        .replace(/^\/+|\/+$/g, '')
+        .replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 function createPrerenderRules() {
-    return sitemapRoutes
-        .filter(
-            route =>
-                route.path !== '/',
-        )
+    return prerenderRoutes
+        .filter(route => route.path !== '/')
         .map(route => {
-            const cleanPath =
-                pathToRewritePattern(
-                    route.path,
-                );
-
-            const target =
-                `${route.path}/index.html`
-                    .replace(
-                        /\/+/g,
-                        '/',
-                    );
-
+            const cleanPath = pathToRewritePattern(route.path);
+            const target = `${route.path}/index.html`.replace(/\/+/g, '/');
             return `    RewriteRule ^${cleanPath}/?$ ${target} [L]`;
         })
         .join('\n');
@@ -101,23 +68,13 @@ function createPrerenderRules() {
 function createClientRules() {
     return clientRenderedRoutes
         .map(route => {
-            const cleanPath =
-                pathToRewritePattern(
-                    route.path,
-                );
-
+            const cleanPath = pathToRewritePattern(route.path);
             return `    RewriteRule ^${cleanPath}/?$ /index.html [L]`;
         })
         .join('\n');
 }
 
 function createHtaccess() {
-    const prerenderRules =
-        createPrerenderRules();
-
-    const clientRules =
-        createClientRules();
-
     return `Options -Indexes
 
 DirectoryIndex index.html
@@ -127,22 +84,13 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # ---------------------------------------------------------
     # Canonical prerendered application routes
-    # ---------------------------------------------------------
+${createPrerenderRules()}
 
-${prerenderRules}
-
-    # ---------------------------------------------------------
     # Client-rendered application routes
-    # ---------------------------------------------------------
+${createClientRules()}
 
-${clientRules}
-
-    # ---------------------------------------------------------
     # Real files and generated assets
-    # ---------------------------------------------------------
-
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
@@ -163,19 +111,15 @@ ${clientRules}
 
 <IfModule mod_expires.c>
     ExpiresActive On
-
     ExpiresByType text/html "access plus 0 seconds"
-
     ExpiresByType text/css "access plus 1 year"
     ExpiresByType application/javascript "access plus 1 year"
     ExpiresByType text/javascript "access plus 1 year"
-
     ExpiresByType image/webp "access plus 1 year"
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
-
     ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>
 
@@ -194,34 +138,12 @@ ${clientRules}
 `;
 }
 
-export async function generateRouteAssets({
-    distDirectory,
-}) {
+export async function generateRouteAssets({ distDirectory }) {
     await Promise.all([
-        writeFile(
-            join(
-                distDirectory,
-                'sitemap.xml',
-            ),
-            createSitemap(),
-            'utf8',
-        ),
-
-        writeFile(
-            join(
-                distDirectory,
-                '.htaccess',
-            ),
-            createHtaccess(),
-            'utf8',
-        ),
+        writeFile(join(distDirectory, 'sitemap.xml'), createSitemap(), 'utf8'),
+        writeFile(join(distDirectory, '.htaccess'), createHtaccess(), 'utf8'),
     ]);
 
-    console.log(
-        '✓ generated sitemap.xml',
-    );
-
-    console.log(
-        '✓ generated .htaccess',
-    );
+    console.log('✓ generated localized sitemap.xml');
+    console.log('✓ generated localized .htaccess');
 }

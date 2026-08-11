@@ -11,6 +11,10 @@ import infrastructureLogo from '../../assets/logos/infrastructure.webp';
 import hospitalityLogo from '../../assets/logos/hospitality.webp';
 import residentialLogo from '../../assets/logos/residential.webp';
 
+import {
+    getLocalizedPath,
+} from '../../data/routes';
+
 import './IndustriesSection.css';
 
 export default function IndustriesSection({ lang }) {
@@ -213,7 +217,7 @@ export default function IndustriesSection({ lang }) {
                                     </p>
 
                                     <Link
-                                        to="/projects"
+                                        to={getLocalizedPath('/projects', lang)}
                                         className="industry-card-link"
                                     >
                                         <span>{content.cta}</span>

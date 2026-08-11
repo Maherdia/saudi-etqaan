@@ -3,44 +3,12 @@ import {
     expect,
 } from '@playwright/test';
 
-const publicRoutes = [
-    {
-        path: '/',
-        titleIncludes: 'Saudi Etqaan',
-    },
-    {
-        path: '/about',
-        titleIncludes: 'Saudi Etqaan',
-    },
-    {
-        path: '/products/hardware',
-        titleIncludes: 'Saudi Etqaan',
-    },
-    {
-        path: '/products/security',
-        titleIncludes: 'Saudi Etqaan',
-    },
-    {
-        path: '/products/sanitary',
-        titleIncludes: 'Saudi Etqaan',
-    },
-    {
-        path: '/products/technology',
-        titleIncludes: 'Saudi Etqaan',
-    },
-    {
-        path: '/projects',
-        titleIncludes: 'Saudi Etqaan',
-    },
-    {
-        path: '/companies',
-        titleIncludes: 'Saudi Etqaan',
-    },
-    {
-        path: '/contact',
-        titleIncludes: 'Saudi Etqaan',
-    },
-];
+import {
+    prerenderRoutes,
+    SITE_URL,
+} from '../src/data/routes.js';
+
+const publicRoutes = prerenderRoutes;
 
 test.describe('public routes', () => {
     for (const route of publicRoutes) {
@@ -54,13 +22,33 @@ test.describe('public routes', () => {
             ).toBeVisible();
 
             await expect(page).toHaveTitle(
-                new RegExp(
-                    route.titleIncludes,
-                    'i',
-                ),
+                route.seo.title,
             );
         });
     }
+});
+
+test('localized routes expose canonical and hreflang metadata', async ({ page }) => {
+    const arabicAbout = publicRoutes.find(
+        route => route.baseId === 'about' && route.locale === 'ar',
+    );
+
+    await page.goto(arabicAbout.path);
+
+    await expect(page.locator('html')).toHaveAttribute('lang', 'ar');
+    await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+        'href',
+        `${SITE_URL}${arabicAbout.path}`,
+    );
+    await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute(
+        'href',
+        `${SITE_URL}/about`,
+    );
+    await expect(page.locator('link[rel="alternate"][hreflang="ar"]')).toHaveAttribute(
+        'href',
+        `${SITE_URL}/ar/about`,
+    );
 });
 
 test('language toggle switches the document to Arabic RTL', async ({
@@ -95,6 +83,8 @@ test('language toggle switches the document to Arabic RTL', async ({
     );
 
     await languageToggle.click();
+
+    await expect(page).toHaveURL(/\/ar$/);
 
     await expect(html).toHaveAttribute(
         'dir',
@@ -153,6 +143,9 @@ test('side menu opens, traps navigation in the UI, and closes with Escape', asyn
     await expect(
         sideMenu,
     ).toBeVisible();
+
+    await expect(sideMenu).toHaveAttribute('role', 'region');
+    await expect(sideMenu).not.toHaveAttribute('role', 'dialog');
 
     await expect
         .poll(async () => {
