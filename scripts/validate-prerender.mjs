@@ -6,17 +6,9 @@ import {
     join,
 } from 'node:path';
 
-const routes = [
-    '/',
-    '/about',
-    '/products/hardware',
-    '/products/security',
-    '/products/sanitary',
-    '/products/technology',
-    '/projects',
-    '/companies',
-    '/contact',
-];
+import {
+    prerenderRoutes,
+} from '../src/data/routes.js';
 
 function getFilePath(route) {
     if (route === '/') {
@@ -36,7 +28,10 @@ function getFilePath(route) {
     );
 }
 
-for (const route of routes) {
+for (
+    const route of
+    prerenderRoutes
+) {
     const filePath =
         getFilePath(route);
 
@@ -91,5 +86,5 @@ for (const route of routes) {
 }
 
 console.log(
-    `\n✓ Validated ${routes.length} prerendered routes.`,
+    `\n✓ Validated ${prerenderRoutes.length} prerendered routes.`,
 );

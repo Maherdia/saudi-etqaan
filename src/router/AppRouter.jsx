@@ -4,91 +4,106 @@ import {
 } from 'react';
 
 import {
-    Route,
     Navigate,
+    Route,
     Routes,
 } from 'react-router-dom';
 
 import Seo from '../components/Seo/Seo';
 
-import seo from '../data/seo';
+import {
+    routeManifest,
+} from '../data/routes';
 
-const Home = lazy(
-    () =>
-        import(
-            '../pages/Home/Home'
+const pageComponents = {
+    home:
+        lazy(
+            () =>
+                import(
+                    '../pages/Home/Home'
+                ),
         ),
-);
 
-const Sanitary = lazy(
-    () =>
-        import(
-            '../pages/Products/Sanitary/Sanitary'
+    sanitary:
+        lazy(
+            () =>
+                import(
+                    '../pages/Products/Sanitary/Sanitary'
+                ),
         ),
-);
 
-const Hardware = lazy(
-    () =>
-        import(
-            '../pages/Products/Hardware/Hardware'
+    hardware:
+        lazy(
+            () =>
+                import(
+                    '../pages/Products/Hardware/Hardware'
+                ),
         ),
-);
 
-const Technology = lazy(
-    () =>
-        import(
-            '../pages/Products/Technology/Technology'
+    technology:
+        lazy(
+            () =>
+                import(
+                    '../pages/Products/Technology/Technology'
+                ),
         ),
-);
 
-const Security = lazy(
-    () =>
-        import(
-            '../pages/Products/Security/Security'
+    security:
+        lazy(
+            () =>
+                import(
+                    '../pages/Products/Security/Security'
+                ),
         ),
-);
 
-const Projects = lazy(
-    () =>
-        import(
-            '../pages/Projects/Projects'
+    projects:
+        lazy(
+            () =>
+                import(
+                    '../pages/Projects/Projects'
+                ),
         ),
-);
 
-const Companies = lazy(
-    () =>
-        import(
-            '../pages/Companies/Companies'
+    companies:
+        lazy(
+            () =>
+                import(
+                    '../pages/Companies/Companies'
+                ),
         ),
-);
 
-const About = lazy(
-    () =>
-        import(
-            '../pages/About/About'
+    about:
+        lazy(
+            () =>
+                import(
+                    '../pages/About/About'
+                ),
         ),
-);
 
-const Contact = lazy(
-    () =>
-        import(
-            '../pages/Contact/Contact'
+    contact:
+        lazy(
+            () =>
+                import(
+                    '../pages/Contact/Contact'
+                ),
         ),
-);
 
-const Search = lazy(
-    () =>
-        import(
-            '../pages/Search/Search'
+    search:
+        lazy(
+            () =>
+                import(
+                    '../pages/Search/Search'
+                ),
         ),
-);
 
-const NotFound = lazy(
-    () =>
-        import(
-            '../pages/NotFound/NotFound'
+    notFound:
+        lazy(
+            () =>
+                import(
+                    '../pages/NotFound/NotFound'
+                ),
         ),
-);
+};
 
 function RouteFallback() {
     return (
@@ -109,7 +124,9 @@ function SeoPage({
 }) {
     return (
         <>
-            <Seo {...seoData} />
+            <Seo
+                {...seoData}
+            />
 
             <Suspense
                 fallback={
@@ -122,161 +139,60 @@ function SeoPage({
     );
 }
 
+function createRouteElement(
+    route,
+) {
+    if (route.redirectTo) {
+        return (
+            <Navigate
+                to={
+                    route.redirectTo
+                }
+                replace
+            />
+        );
+    }
+
+    const Page =
+        pageComponents[
+        route.page
+        ];
+
+    if (!Page) {
+        return null;
+    }
+
+    return (
+        <SeoPage
+            seoData={
+                route.seo
+            }
+        >
+            <Page />
+        </SeoPage>
+    );
+}
+
 export default function AppRouter() {
     return (
         <Routes>
-            <Route
-                path="/"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.home
+            {routeManifest.map(
+                route => (
+                    <Route
+                        key={
+                            route.id
                         }
-                    >
-                        <Home />
-                    </SeoPage>
-                }
-            />
-
-            <Route
-                path="/products"
-                element={
-                    <Navigate
-                        to="/products/sanitary"
-                        replace
+                        path={
+                            route.path
+                        }
+                        element={
+                            createRouteElement(
+                                route,
+                            )
+                        }
                     />
-                }
-            />
-
-            <Route
-                path="/products/sanitary"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.sanitary
-                        }
-                    >
-                        <Sanitary />
-                    </SeoPage>
-                }
-            />
-
-            <Route
-                path="/products/hardware"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.hardware
-                        }
-                    >
-                        <Hardware />
-                    </SeoPage>
-                }
-            />
-
-            <Route
-                path="/products/technology"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.technology
-                        }
-                    >
-                        <Technology />
-                    </SeoPage>
-                }
-            />
-
-            <Route
-                path="/products/security"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.security
-                        }
-                    >
-                        <Security />
-                    </SeoPage>
-                }
-            />
-
-            <Route
-                path="/projects"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.projects
-                        }
-                    >
-                        <Projects />
-                    </SeoPage>
-                }
-            />
-
-            <Route
-                path="/companies"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.companies
-                        }
-                    >
-                        <Companies />
-                    </SeoPage>
-                }
-            />
-
-            <Route
-                path="/about"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.about
-                        }
-                    >
-                        <About />
-                    </SeoPage>
-                }
-            />
-
-            <Route
-                path="/contact"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.contact
-                        }
-                    >
-                        <Contact />
-                    </SeoPage>
-                }
-            />
-
-            <Route
-                path="/search"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.search
-                        }
-                    >
-                        <Search />
-                    </SeoPage>
-                }
-            />
-
-            <Route
-                path="*"
-                element={
-                    <SeoPage
-                        seoData={
-                            seo.notFound
-                        }
-                    >
-                        <NotFound />
-                    </SeoPage>
-                }
-            />
+                ),
+            )}
         </Routes>
     );
 }

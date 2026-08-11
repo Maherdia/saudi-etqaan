@@ -20,6 +20,15 @@ import {
     preview,
 } from 'vite';
 
+import {
+    NOT_FOUND_PATH,
+    prerenderRoutes,
+} from '../src/data/routes.js';
+
+import {
+    generateRouteAssets,
+} from './generate-route-assets.mjs';
+
 const currentFile =
     fileURLToPath(
         import.meta.url,
@@ -48,18 +57,6 @@ const PORT =
 
 const BASE_URL =
     `http://${HOST}:${PORT}`;
-
-const routes = [
-    '/',
-    '/about',
-    '/products/hardware',
-    '/products/security',
-    '/products/sanitary',
-    '/products/technology',
-    '/projects',
-    '/companies',
-    '/contact',
-];
 
 function getOutputPath(route) {
     if (route === '/') {
@@ -243,7 +240,7 @@ async function prerender404(
     try {
         await preparePage(
             page,
-            '/404',
+            NOT_FOUND_PATH,
         );
 
         const html =
@@ -298,7 +295,8 @@ async function run() {
             });
 
         for (
-            const route of routes
+            const route of
+            prerenderRoutes
         ) {
             await prerenderRoute(
                 browser,
@@ -310,8 +308,12 @@ async function run() {
             browser,
         );
 
+        await generateRouteAssets({
+            distDirectory,
+        });
+
         console.log(
-            `\n✓ Prerendered ${routes.length} public routes plus custom 404.`,
+            `\n✓ Prerendered ${prerenderRoutes.length} public routes plus custom 404.`,
         );
     } finally {
         if (browser) {
