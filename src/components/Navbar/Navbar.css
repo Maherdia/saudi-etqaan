@@ -1,0 +1,311 @@
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.site-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1200;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 30px 4vw;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+
+  pointer-events: auto;
+
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 220ms ease,
+    visibility 220ms ease,
+    transform 220ms ease;
+}
+
+.site-brand img {
+  display: block;
+
+  width:
+    clamp(225px,
+      20vw,
+      340px);
+
+  height: auto;
+  max-height: 86px;
+
+  object-fit: contain;
+  object-position: left center;
+}
+
+.site-brand:hover {
+  transform: translateY(-1px);
+}
+
+.site-header-menu-open .site-brand {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* =========================================================
+   FLOATING HEADER CONTROLS
+
+   Keep the viewport-fixed controls outside the absolutely
+   positioned site header. This avoids mobile browser
+   compositing bugs where fixed descendants can temporarily
+   appear to drift during long or fast scrolling.
+   ========================================================= */
+
+.site-floating-controls {
+  position: fixed;
+  top: 40px;
+  right: 3vw;
+  z-index: 1500;
+
+  display: flex;
+  align-items: center;
+
+  gap: 27px;
+
+  pointer-events: none;
+}
+
+.language-toggle,
+.site-menu-trigger {
+  position: relative;
+
+  flex: 0 0 auto;
+
+  width: auto;
+  height: auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  color: var(--hero-text);
+
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+
+  background: transparent;
+  box-shadow: none;
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  cursor: pointer;
+  pointer-events: auto;
+
+  transition:
+    color 220ms ease,
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.language-toggle {
+  min-width: 32px;
+
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.65;
+
+  color: #1fc9c5 !important;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-menu-trigger svg {
+  width: 35px;
+  height: 28px;
+
+  color: #1fc9c5 !important;
+
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+.language-toggle:hover,
+.site-menu-trigger:hover {
+  color: var(--accent);
+
+  transform:
+    translateY(-2px) scale(1.05);
+}
+
+.language-toggle:focus-visible,
+.site-menu-trigger:focus-visible {
+  outline:
+    2px solid var(--accent);
+
+  outline-offset: 5px;
+}
+
+.site-floating-controls-menu-open .language-toggle,
+.site-floating-controls-menu-open .site-menu-trigger {
+  color: var(--text);
+
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+/* =========================================================
+   RTL
+   ========================================================= */
+
+html[dir='rtl'] .site-brand img {
+  object-position:
+    right center;
+}
+
+html[dir='rtl'] .site-floating-controls {
+  right: auto;
+  left: 4vw;
+
+  flex-direction: row-reverse;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .site-header {
+    padding:
+      26px 28px;
+  }
+
+  .site-brand img {
+    width:
+      clamp(200px,
+        28vw,
+        270px);
+
+    max-height: 72px;
+  }
+
+  .site-floating-controls {
+    top: 27px;
+    right: 28px;
+
+    gap: 25px;
+  }
+
+  html[dir='rtl'] .site-floating-controls {
+    right: auto;
+    left: 28px;
+  }
+
+  .site-menu-trigger svg {
+    width: 29px;
+    height: 29px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 720px) {
+  .site-header {
+    padding: 22px;
+  }
+
+  .site-brand img {
+    width: 185px;
+    height: auto;
+    max-height: 58px;
+  }
+
+  .site-floating-controls {
+    top:
+      max(23px, env(safe-area-inset-top));
+
+    right: 20px;
+
+    gap: 18px;
+  }
+
+  html[dir='rtl'] .site-floating-controls {
+    right: auto;
+    left: 20px;
+  }
+
+  .language-toggle {
+    font-size: 0.72rem;
+  }
+
+  .site-menu-trigger svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 430px) {
+  .site-brand img {
+    width: 160px;
+    max-height: 52px;
+  }
+
+  .site-floating-controls {
+    right: 18px;
+
+    gap: 15px;
+  }
+
+  html[dir='rtl'] .site-floating-controls {
+    right: auto;
+    left: 18px;
+  }
+
+  .site-menu-trigger svg {
+    width: 27px;
+    height: 27px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .site-brand,
+  .language-toggle,
+  .site-menu-trigger {
+    transition: none;
+  }
+
+  .language-toggle:hover,
+  .site-menu-trigger:hover {
+    transform: none;
+  }
+}

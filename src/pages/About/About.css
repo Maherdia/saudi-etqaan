@@ -1,0 +1,256 @@
+/* =========================================================
+   ABOUT PAGE
+   ========================================================= */
+
+.about-page {
+    min-height: 100vh;
+    color: var(--text);
+    background: var(--bg);
+}
+
+.about-container {
+    width: min(1440px, calc(100% - 8vw));
+    margin-inline: auto;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.about-hero {
+    min-height: 100svh;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 180px 0 90px;
+
+    color: var(--hero-text);
+
+    background:
+        radial-gradient(circle at 82% 12%,
+            var(--hero-glow),
+            transparent 36%),
+        linear-gradient(135deg,
+            var(--hero-bg-1),
+            var(--hero-bg-2));
+}
+
+.about-kicker {
+    display: inline-block;
+    margin-bottom: 22px;
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.about-title {
+    max-width: 980px;
+    margin: 0;
+    color: var(--hero-text);
+    font-size: clamp(3.1rem, 5.1vw, 5.6rem);
+    font-weight: 500;
+    line-height: 0.92;
+    letter-spacing: -0.065em;
+}
+
+.about-introduction {
+    max-width: 900px;
+    margin: 34px 0 0;
+    color: var(--hero-muted);
+    font-size: clamp(1rem, 1.3vw, 1.16rem);
+    line-height: 1.95;
+}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.about-sections {
+    background: var(--bg);
+}
+
+.about-section {
+    padding: 120px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    background: var(--bg);
+}
+
+.about-section:nth-child(even) {
+    background: var(--surface-2);
+}
+
+.about-section-layout {
+    display: grid;
+    grid-template-columns:
+        minmax(260px, 0.55fr) minmax(0, 1fr);
+
+    gap: clamp(70px, 9vw, 160px);
+    align-items: start;
+}
+
+.about-section-heading {
+    position: sticky;
+    top: 130px;
+}
+
+.about-number {
+    display: block;
+    margin-bottom: 34px;
+    color: var(--accent);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.about-label {
+    display: block;
+    margin-bottom: 14px;
+    color: var(--muted-2);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.about-section-heading h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(2.8rem, 5vw, 5.3rem);
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+}
+
+.about-section-copy {
+    max-width: 920px;
+    padding-top: 130px;
+}
+
+.about-section-copy p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: clamp(1.12rem, 1.5vw, 1.35rem);
+    line-height: 2;
+}
+
+/* =========================================================
+   RTL
+   ========================================================= */
+
+[dir='rtl'] .about-title,
+[dir='rtl'] .about-section-heading h2 {
+    letter-spacing: normal;
+}
+
+[dir='rtl'] .about-kicker,
+[dir='rtl'] .about-label,
+[dir='rtl'] .about-number {
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+    .about-hero {
+        min-height: 90svh;
+        padding: 130px 0 90px;
+    }
+
+    .about-section {
+        min-height: 105svh;
+        padding: 110px 0;
+    }
+
+    .about-section-layout {
+        grid-template-columns:
+            minmax(220px, 0.42fr) minmax(0, 1fr);
+
+        gap: 50px;
+    }
+
+    .about-section-heading {
+        position: sticky;
+        top: 110px;
+        transform: none;
+    }
+
+    .about-section-copy {
+        max-width: 860px;
+        padding-top: 105px;
+    }
+
+    .about-section-copy p {
+        font-size: clamp(1.05rem, 1.7vw, 1.22rem);
+        line-height: 1.95;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+    .about-container {
+        width: min(100% - 28px, 1440px);
+    }
+
+    .about-hero {
+        min-height: 100svh;
+        align-items: flex-end;
+        padding: 120px 0 70px;
+    }
+
+    .about-title {
+        font-size: clamp(3rem, 14vw, 5.2rem);
+        line-height: 0.95;
+    }
+
+    .about-introduction {
+        margin-top: 24px;
+
+        font-size: 1rem;
+        line-height: 1.85;
+    }
+
+    .about-section {
+        min-height: auto;
+        padding: 88px 0;
+    }
+
+    .about-section-layout {
+        grid-template-columns: 1fr;
+        gap: 34px;
+    }
+
+    .about-section-heading {
+        position: relative;
+        top: auto;
+        transform: none;
+    }
+
+    .about-number {
+        margin-bottom: 22px;
+    }
+
+    .about-section-heading h2 {
+        font-size: clamp(2.8rem, 12vw, 4.4rem);
+    }
+
+    .about-section-copy {
+        max-width: none;
+        padding-top: 0;
+    }
+
+    .about-section-copy p {
+        font-size: 1.04rem;
+        line-height: 1.9;
+    }
+}

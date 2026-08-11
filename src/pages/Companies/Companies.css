@@ -1,0 +1,658 @@
+/* =========================================================
+   COMPANIES PAGE
+   ========================================================= */
+
+.companies-page {
+    min-height: 100vh;
+
+    color: var(--text);
+    background: var(--bg);
+}
+
+.companies-container {
+    width: min(1440px, calc(100% - 8vw));
+    margin-inline: auto;
+}
+
+/* =========================================================
+   HERO
+
+   The global logo is intentionally not overridden here.
+   It now uses the exact shared size and location used by
+   the About page.
+   ========================================================= */
+
+.companies-hero {
+    min-height: 100svh;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 180px 0 90px;
+
+    overflow: hidden;
+
+    color: var(--hero-text);
+
+    background:
+        radial-gradient(circle at 82% 18%,
+            var(--hero-glow),
+            transparent 35%),
+        linear-gradient(135deg,
+            var(--hero-bg-1),
+            var(--hero-bg-2));
+}
+
+.companies-hero .companies-container {
+    position: relative;
+}
+
+.companies-eyebrow {
+    display: inline-block;
+
+    margin-bottom: 26px;
+
+    color: var(--accent);
+
+    font-size: var(--font-eyebrow);
+    font-weight: var(--weight-heavy);
+
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.companies-title {
+    max-width: 1240px;
+
+    margin: 0;
+
+    color: var(--hero-text);
+
+    font-size: clamp(3.1rem, 5.1vw, 5.6rem);
+    font-weight: var(--weight-medium);
+
+    line-height: 0.91;
+    letter-spacing: -0.07em;
+
+    text-wrap: balance;
+}
+
+.companies-lead {
+    max-width: 860px;
+
+    margin: 42px 0 0;
+
+    color: var(--hero-muted);
+
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    line-height: 1.85;
+}
+
+.companies-hero-index {
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    color:
+        color-mix(in srgb,
+            var(--hero-text) 46%,
+            transparent);
+
+    font-size: var(--font-caption);
+    font-weight: var(--weight-heavy);
+
+    letter-spacing: 0.12em;
+}
+
+.companies-hero-index span:first-child {
+    color: var(--accent);
+}
+
+/* =========================================================
+   SHOWCASE
+   ========================================================= */
+
+.companies-showcase {
+    padding: 120px 0 140px;
+
+    border-top: 1px solid var(--border);
+
+    background: var(--bg);
+}
+
+.companies-showcase-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 36px;
+}
+
+.companies-showcase-header>span {
+    color: var(--accent);
+
+    font-size: var(--font-eyebrow);
+    font-weight: var(--weight-heavy);
+
+    letter-spacing: 0.14em;
+}
+
+.companies-showcase-header p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: var(--font-caption);
+    font-weight: var(--weight-heavy);
+
+    letter-spacing: 0.1em;
+}
+
+/* =========================================================
+   COMPANY LIST
+   ========================================================= */
+
+.companies-accordion {
+    border-top: 1px solid var(--border);
+}
+
+.company-panel {
+    border-bottom: 1px solid var(--border);
+
+    background: transparent;
+}
+
+.company-panel:nth-child(even) {
+    background:
+        color-mix(in srgb,
+            var(--surface) 72%,
+            transparent);
+}
+
+/* =========================================================
+   COMPANY HEADING
+   ========================================================= */
+
+.company-panel-trigger {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        70px minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: 28px;
+
+    padding: 38px 30px 30px;
+
+    color: var(--text);
+}
+
+.company-panel-number {
+    align-self: start;
+
+    padding-top: 10px;
+
+    color: var(--accent);
+
+    font-size: var(--font-caption);
+    font-weight: var(--weight-heavy);
+
+    letter-spacing: 0.12em;
+}
+
+.company-panel-heading {
+    min-width: 0;
+
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+
+    gap: 16px 22px;
+}
+
+.company-panel-heading strong {
+    color: var(--text);
+
+    font-size: clamp(2.3rem, 4vw, 4.9rem);
+    font-weight: var(--weight-semibold);
+
+    line-height: 0.96;
+    letter-spacing: -0.055em;
+}
+
+.company-panel-heading small {
+    color: var(--accent);
+
+    font-size: var(--font-caption);
+    font-weight: var(--weight-heavy);
+
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   COMPANY CONTENT
+   ========================================================= */
+
+.company-panel-content {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.42fr) minmax(300px, 0.58fr);
+
+    align-items: stretch;
+
+    opacity: 1;
+    transform: none;
+}
+
+.company-panel-copy {
+    min-width: 0;
+
+    padding:
+        18px 64px 70px 128px;
+}
+
+.company-panel-label {
+    display: block;
+
+    color: var(--accent);
+
+    font-size: var(--font-eyebrow);
+    font-weight: var(--weight-heavy);
+
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.company-panel-copy>p {
+    max-width: 720px;
+
+    margin: 28px 0 0;
+
+    color: var(--muted);
+
+    font-size: clamp(1rem, 1.25vw, 1.14rem);
+    line-height: 1.85;
+}
+
+.company-panel-copy ul {
+    max-width: 720px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 14px 30px;
+
+    margin: 34px 0 0;
+    padding: 28px 0 0;
+
+    border-top: 1px solid var(--border);
+
+    list-style: none;
+}
+
+.company-panel-copy li {
+    position: relative;
+
+    padding-inline-start: 17px;
+
+    color: var(--muted);
+
+    font-size: var(--font-body-small);
+    line-height: 1.6;
+}
+
+.company-panel-copy li::before {
+    content: '';
+
+    position: absolute;
+
+    top: 0.7em;
+    inset-inline-start: 0;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+}
+
+.company-panel-link {
+    width: fit-content;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 38px;
+    padding-bottom: 8px;
+
+    color: var(--text);
+
+    border-bottom:
+        1px solid color-mix(in srgb,
+            var(--text) 25%,
+            transparent);
+
+    font-size: var(--font-body-small);
+    font-weight: var(--weight-heavy);
+
+    transition:
+        color 220ms ease,
+        gap 220ms ease,
+        border-color 220ms ease;
+}
+
+.company-panel-link:hover {
+    gap: 18px;
+
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.company-panel-link svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* =========================================================
+   COMPANY LOGO
+   ========================================================= */
+
+.company-panel-visual {
+    min-height: 340px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    overflow: hidden;
+
+    border-inline-start: 1px solid var(--border);
+}
+
+.company-panel-logo {
+    display: block;
+
+    width: auto;
+    max-width: 82%;
+
+    height: auto;
+    max-height: 250px;
+
+    object-fit: contain;
+    object-position: center;
+}
+
+/* =========================================================
+   CLOSING STATEMENT
+   ========================================================= */
+
+.companies-closing {
+    min-height: 82svh;
+
+    display: flex;
+    align-items: center;
+
+    padding: 150px 0;
+
+    border-top: 1px solid var(--border);
+
+    background: var(--surface-2);
+}
+
+.companies-closing-eyebrow {
+    display: block;
+
+    margin-bottom: 30px;
+
+    color: var(--accent);
+
+    font-size: var(--font-eyebrow);
+    font-weight: var(--weight-heavy);
+
+    letter-spacing: 0.14em;
+}
+
+.companies-closing h2 {
+    max-width: 1250px;
+
+    margin: 0;
+
+    font-size: clamp(3.3rem, 6.5vw, 7.3rem);
+    font-weight: var(--weight-medium);
+
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+
+    text-wrap: balance;
+}
+
+.companies-closing p {
+    max-width: 980px;
+
+    margin: 38px 0 0;
+
+    color: var(--muted);
+
+    font-size: clamp(1rem, 1.25vw, 1.16rem);
+    line-height: 1.9;
+}
+
+/* =========================================================
+   RTL
+   ========================================================= */
+
+html[dir='rtl'] .companies-title,
+html[dir='rtl'] .company-panel-heading strong,
+html[dir='rtl'] .companies-closing h2 {
+    letter-spacing: 0;
+}
+
+html[dir='rtl'] .companies-eyebrow,
+html[dir='rtl'] .companies-showcase-header>span,
+html[dir='rtl'] .company-panel-label,
+html[dir='rtl'] .company-panel-heading small,
+html[dir='rtl'] .companies-closing-eyebrow {
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+html[dir='rtl'] .companies-hero-index {
+    right: auto;
+    left: 0;
+}
+
+html[dir='rtl'] .company-panel-copy {
+    padding:
+        18px 128px 70px 64px;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+    .companies-hero {
+        min-height: 90svh;
+
+        padding: 130px 0 90px;
+    }
+
+    .company-panel-content {
+        grid-template-columns: 1fr;
+    }
+
+    .company-panel-copy {
+        padding:
+            18px 42px 54px 98px;
+    }
+
+    html[dir='rtl'] .company-panel-copy {
+        padding:
+            18px 98px 54px 42px;
+    }
+
+    .company-panel-visual {
+        min-height: 310px;
+
+        padding: 28px;
+
+        border-inline-start: 0;
+        border-top: 1px solid var(--border);
+    }
+
+    .company-panel-logo {
+        max-width: 68%;
+        max-height: 220px;
+    }
+
+    .companies-closing {
+        min-height: 70svh;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+    .companies-container {
+        width: min(100% - 28px, 1440px);
+    }
+
+    .companies-hero {
+        min-height: 100svh;
+
+        align-items: flex-end;
+
+        padding: 120px 0 70px;
+    }
+
+    .companies-title {
+        font-size: clamp(3rem, 14vw, 5.2rem);
+        line-height: 0.95;
+    }
+
+    .companies-lead {
+        margin-top: 24px;
+
+        font-size: 1rem;
+        line-height: 1.85;
+    }
+
+    .companies-hero-index {
+        display: none;
+    }
+
+    .companies-showcase {
+        padding: 88px 0 100px;
+    }
+
+    .companies-showcase-header {
+        margin-bottom: 26px;
+    }
+
+    .company-panel-trigger {
+        grid-template-columns:
+            36px minmax(0, 1fr);
+
+        gap: 14px;
+
+        padding:
+            30px 4px 24px;
+    }
+
+    .company-panel-number {
+        padding-top: 6px;
+    }
+
+    .company-panel-heading {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 8px;
+    }
+
+    html[dir='rtl'] .company-panel-heading {
+        align-items: flex-start;
+    }
+
+    .company-panel-heading strong {
+        font-size: clamp(1.85rem, 9vw, 3rem);
+        line-height: 1;
+    }
+
+    .company-panel-copy,
+    html[dir='rtl'] .company-panel-copy {
+        padding:
+            8px 4px 46px 50px;
+    }
+
+    html[dir='rtl'] .company-panel-copy {
+        padding:
+            8px 50px 46px 4px;
+    }
+
+    .company-panel-copy ul {
+        grid-template-columns: 1fr;
+    }
+
+    .company-panel-visual {
+        min-height: 240px;
+
+        padding: 22px;
+
+        border-inline-start: 0;
+        border-top: 1px solid var(--border);
+    }
+
+    .company-panel-logo {
+        max-width: 76%;
+        max-height: 170px;
+    }
+
+    .companies-closing {
+        min-height: 74svh;
+
+        padding: 100px 0;
+    }
+
+    .companies-closing h2 {
+        font-size: clamp(3rem, 13vw, 5rem);
+    }
+
+    .companies-closing p {
+        font-size: 0.98rem;
+        line-height: 1.8;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .company-panel-link {
+        transition: none;
+    }
+}

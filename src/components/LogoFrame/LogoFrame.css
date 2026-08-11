@@ -1,0 +1,121 @@
+/* =========================================================
+   SHARED LOGO FRAME
+   ========================================================= */
+
+.logo-frame {
+    width: 100%;
+    height: 100%;
+    min-height: 130px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 26px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+    border-radius: inherit;
+
+    transition:
+        border-color 180ms ease,
+        background-color 180ms ease,
+        transform 180ms ease;
+}
+
+.logo-frame img {
+    display: block;
+
+    width: auto;
+    max-width: 88%;
+
+    height: auto;
+    max-height: 82px;
+
+    object-fit: contain;
+    object-position: center;
+
+    filter: none;
+    opacity: 1;
+
+    transition:
+        transform 180ms ease,
+        opacity 180ms ease;
+}
+
+.logo-frame:hover {
+    border-color:
+        color-mix(in srgb,
+            var(--accent) 45%,
+            var(--border));
+}
+
+.logo-frame:hover img {
+    transform: scale(1.04);
+}
+
+/* White or very pale logos */
+
+.logo-frame-dark {
+    background:
+        linear-gradient(145deg,
+            #13191a,
+            #090d0e);
+}
+
+.logo-frame-dark img {
+    filter: none;
+    opacity: 1;
+}
+
+/* Black, dark-gray, or dark-colored logos */
+
+.logo-frame-light {
+    background:
+        linear-gradient(145deg,
+            #fdfdfd,
+            #f9f9f9);
+}
+
+.logo-frame-light img {
+    filter: none;
+    opacity: 1;
+}
+
+/* Logos that already work on both backgrounds */
+
+html[data-theme='dark'] .logo-frame-auto {
+    background:
+        linear-gradient(145deg,
+            #151b1c,
+            #0d1213);
+}
+
+html[data-theme='light'] .logo-frame-auto {
+    background:
+        linear-gradient(145deg,
+            #fdfdfd,
+            #f9f9f9);
+}
+
+/* Prevent old global logo filters from affecting these images */
+
+.logo-frame img,
+html[data-theme='dark'] .logo-frame img,
+html[data-theme='light'] .logo-frame img {
+    filter: none !important;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+    .logo-frame {
+        min-height: 105px;
+        padding: 19px;
+    }
+
+    .logo-frame img {
+        max-height: 65px;
+    }
+}

@@ -1,0 +1,408 @@
+/* =========================================================
+   CLIENTS SECTION
+   ========================================================= */
+
+.clients-slider-section {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 140px 0 150px;
+
+    border-bottom: 1px solid var(--border);
+
+    background: var(--clients-background);
+}
+
+.clients-slider-container {
+    width:
+        min(1440px,
+            calc(100% - 12vw));
+
+    margin: 0 auto;
+}
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.clients-slider-heading {
+    max-width: 980px;
+
+    margin-bottom: 84px;
+}
+
+.clients-slider-heading>span {
+    display: block;
+
+    margin: 0 0 20px;
+
+    color: var(--accent);
+
+    font-size: 0.8rem;
+    font-weight: 800;
+    line-height: 1.5;
+
+    letter-spacing: 0.15em;
+
+    text-transform: uppercase;
+}
+
+.clients-slider-heading h2 {
+    max-width: 980px;
+
+    margin: 0;
+
+    color: var(--text);
+
+    font-size:
+        clamp(2.25rem,
+            4vw,
+            4.6rem);
+
+    font-weight: 560;
+    line-height: 0.98;
+
+    letter-spacing: -0.055em;
+}
+
+.clients-slider-heading>p {
+    max-width: 760px;
+
+    margin: 28px 0 0;
+
+    color: var(--muted);
+
+    font-size: 1rem;
+    line-height: 1.85;
+}
+
+/* =========================================================
+   MARQUEE
+   ========================================================= */
+
+.clients-slider-marquee {
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    direction: ltr;
+}
+
+.clients-slider-track {
+    width: max-content;
+    min-width: max-content;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 90px;
+
+    padding: 34px 50px 56px;
+
+    direction: ltr;
+
+    animation:
+        clients-slider-scroll 30s linear infinite;
+
+    will-change: transform;
+
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+}
+
+/* =========================================================
+   CLIENT ITEM
+   ========================================================= */
+
+.clients-slider-item {
+    flex:
+        0 0 clamp(320px,
+            23vw,
+            430px);
+
+    min-width: 0;
+
+    direction: ltr;
+
+    text-align: center;
+}
+
+.clients-slider-logo-stage {
+    position: relative;
+
+    min-height: 300px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    isolation: isolate;
+
+    animation:
+        clients-slider-float 3.2s ease-in-out infinite;
+}
+
+.clients-slider-item:nth-child(2n) .clients-slider-logo-stage {
+    animation-delay: -1.4s;
+}
+
+.clients-slider-item:nth-child(3n) .clients-slider-logo-stage {
+    animation-delay: -2.8s;
+}
+
+.clients-slider-logo-stage::before {
+    content: '';
+
+    position: absolute;
+    z-index: -1;
+
+    width: 210px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background: var(--logo-stage-glow);
+
+    filter: blur(22px);
+
+    opacity: 0.7;
+}
+
+.clients-slider-logo-stage img {
+    display: block;
+
+    width: 100%;
+    max-width: 370px;
+
+    height: 210px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(var(--logo-shadow));
+
+    transform: translateZ(0);
+
+    transition:
+        transform 300ms ease,
+        filter 300ms ease;
+}
+
+.clients-slider-item:hover .clients-slider-logo-stage img {
+    transform: scale(1.07);
+
+    filter:
+        drop-shadow(var(--logo-shadow-hover));
+}
+
+.clients-slider-item>p {
+    margin: 20px 0 0;
+
+    color: var(--muted);
+
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.6;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   EDGE FADES
+   ========================================================= */
+
+.clients-slider-fade {
+    position: absolute;
+    z-index: 4;
+
+    top: 0;
+    bottom: 0;
+
+    width:
+        min(14vw,
+            220px);
+
+    pointer-events: none;
+}
+
+.clients-slider-fade-start {
+    left: 0;
+
+    background:
+        linear-gradient(90deg,
+            var(--clients-fade),
+            transparent);
+}
+
+.clients-slider-fade-end {
+    right: 0;
+
+    background:
+        linear-gradient(270deg,
+            var(--clients-fade),
+            transparent);
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes clients-slider-scroll {
+    from {
+        transform:
+            translate3d(0,
+                0,
+                0);
+    }
+
+    to {
+        transform:
+            translate3d(-50%,
+                0,
+                0);
+    }
+}
+
+@keyframes clients-slider-float {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-22px);
+    }
+}
+
+/* =========================================================
+   RTL
+   ========================================================= */
+
+html[dir='rtl'] .clients-slider-heading {
+    text-align: right;
+}
+
+html[dir='rtl'] .clients-slider-heading>span {
+    letter-spacing: 0;
+
+    text-transform: none;
+}
+
+html[dir='rtl'] .clients-slider-heading h2 {
+    line-height: 1.35;
+
+    letter-spacing: 0;
+}
+
+html[dir='rtl'] .clients-slider-heading>p {
+    line-height: 2;
+}
+
+html[dir='rtl'] .clients-slider-item {
+    direction: rtl;
+}
+
+html[dir='rtl'] .clients-slider-item>p {
+    letter-spacing: 0;
+
+    text-transform: none;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 760px) {
+    .clients-slider-section {
+        padding:
+            92px 0 105px;
+    }
+
+    .clients-slider-container {
+        width:
+            calc(100% - 40px);
+    }
+
+    .clients-slider-heading {
+        margin-bottom: 54px;
+    }
+
+    .clients-slider-heading>span {
+        font-size: 0.76rem;
+    }
+
+    .clients-slider-heading h2 {
+        font-size:
+            clamp(2.2rem,
+                10vw,
+                3.7rem);
+    }
+
+    .clients-slider-track {
+        gap: 52px;
+
+        padding:
+            24px 24px 40px;
+
+        animation:
+            clients-slider-scroll 30s linear infinite;
+
+        will-change: transform;
+    }
+
+    .clients-slider-item {
+        flex-basis: 270px;
+    }
+
+    .clients-slider-logo-stage {
+        min-height: 215px;
+    }
+
+    .clients-slider-logo-stage img {
+        max-width: 255px;
+
+        height: 150px;
+    }
+
+    .clients-slider-item>p {
+        margin-top: 14px;
+
+        font-size: 0.7rem;
+    }
+
+    .clients-slider-fade {
+        width: 54px;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+
+   Keep the horizontal client marquee active because it is
+   part of the section's browsing behavior, but remove the
+   decorative vertical floating motion.
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .clients-slider-track {
+        animation:
+            clients-slider-scroll 30s linear infinite;
+    }
+
+    .clients-slider-logo-stage {
+        animation: none;
+    }
+
+    .clients-slider-logo-stage img {
+        transition: none;
+    }
+}

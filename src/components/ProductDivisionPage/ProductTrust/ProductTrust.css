@@ -1,0 +1,727 @@
+/* =========================================================
+   PRODUCT TRUST
+
+   Owns:
+   - Partners
+   - Brands
+   - Certificates
+   - Trust-section headings
+
+   ClientsSlider keeps its own CSS.
+   ========================================================= */
+
+
+/* =========================================================
+   TRUST HEADING
+   ========================================================= */
+
+.product-trust-heading {
+    max-width: 1060px;
+
+    margin: 0 0 72px;
+}
+
+.product-trust-heading>span {
+    display: block;
+
+    margin: 0 0 20px;
+
+    color: var(--accent);
+
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1.5;
+
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.product-trust-heading h2 {
+    max-width: 1030px;
+
+    margin: 0;
+
+    color: var(--text);
+
+    font-size:
+        clamp(2.2rem,
+            3.6vw,
+            4.2rem);
+
+    font-weight:
+        var(--weight-semibold);
+
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+}
+
+.product-trust-heading>p {
+    max-width: 790px;
+
+    margin: 28px 0 0;
+
+    color: var(--muted);
+
+    font-size: 1.02rem;
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   PARTNERS
+   ========================================================= */
+
+.product-partners-section {
+    background:
+        radial-gradient(circle at 0 0,
+            color-mix(in srgb,
+                var(--accent) 4.5%,
+                transparent),
+            transparent 28%);
+}
+
+.partner-logo-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,
+            minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.partner-logo-link {
+    position: relative;
+
+    min-width: 0;
+    min-height: 205px;
+
+    display: block;
+
+    padding: 0;
+
+    overflow: visible;
+
+    color: inherit;
+    background: transparent;
+
+    border: 0;
+    border-radius: 24px;
+
+    box-shadow: none;
+    text-decoration: none;
+
+    transition:
+        transform 180ms ease;
+}
+
+.partner-logo-link:hover {
+    transform:
+        translateY(-4px);
+}
+
+.partner-logo-link .logo-frame {
+    width: 100%;
+    min-height: 205px;
+
+    border-radius: 24px;
+}
+
+.partner-logo-link .logo-frame img {
+    display: block;
+
+    width: auto;
+    max-width: 86%;
+
+    height: auto;
+    max-height: 105px;
+
+    object-fit: contain;
+
+    filter: none !important;
+    opacity: 1;
+}
+
+.partner-logo-link>span {
+    min-height: 205px;
+
+    display: grid;
+    place-items: center;
+
+    padding: 24px;
+
+    color: var(--text);
+
+    font-weight: 700;
+    line-height: 1.4;
+
+    text-align: center;
+}
+
+.partner-logo-link-static {
+    cursor: default;
+}
+
+.partner-logo-link[href] {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   PARTNER EXTERNAL-LINK INDICATOR
+   ========================================================= */
+
+.partner-logo-link[href]::after {
+    content: '↗';
+
+    position: absolute;
+    z-index: 4;
+
+    top: 18px;
+    right: 20px;
+
+    color: var(--accent);
+
+    font-size: 0.9rem;
+
+    opacity: 0;
+
+    transform:
+        translate(-4px,
+            4px);
+
+    transition:
+        opacity 180ms ease,
+        transform 180ms ease;
+}
+
+.partner-logo-link[href]:hover::after {
+    opacity: 1;
+
+    transform:
+        translate(0,
+            0);
+}
+
+
+/* =========================================================
+   BRANDS
+   ========================================================= */
+
+.product-brands-section {
+    overflow: hidden;
+}
+
+.brand-marquee-shell {
+    width: 100%;
+    max-width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+
+    overflow: hidden;
+}
+
+.brand-marquee-row,
+.brand-marquee-track {
+    direction: ltr;
+    unicode-bidi: isolate;
+}
+
+.brand-marquee-row {
+    width: 100%;
+
+    overflow: hidden;
+
+    mask-image:
+        linear-gradient(to right,
+            transparent,
+            #000 4%,
+            #000 96%,
+            transparent);
+
+    -webkit-mask-image:
+        linear-gradient(to right,
+            transparent,
+            #000 4%,
+            #000 96%,
+            transparent);
+}
+
+.brand-marquee-track {
+    width: max-content;
+    min-width: max-content;
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    animation:
+        product-brand-marquee 42s linear infinite;
+
+    will-change: transform;
+}
+
+.brand-marquee-row-reverse .brand-marquee-track {
+    animation-direction: reverse;
+    animation-duration: 48s;
+}
+
+.brand-marquee-row:hover .brand-marquee-track {
+    animation-play-state:
+        paused;
+}
+
+
+/* =========================================================
+   BRAND ITEM
+   ========================================================= */
+
+.brand-marquee-item {
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
+
+    height: 138px;
+    min-height: 138px;
+    max-height: 138px;
+
+    flex:
+        0 0 220px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-marquee-item .logo-frame {
+    width: 100%;
+    height: 138px;
+    min-height: 138px;
+
+    border-radius: 20px;
+}
+
+.brand-marquee-item .logo-frame img {
+    max-width: 86%;
+    max-height: 78px;
+
+    object-fit: contain;
+
+    filter: none !important;
+    opacity: 1;
+}
+
+.brand-marquee-item>span {
+    color: var(--text);
+
+    font-weight: 700;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   CERTIFICATES
+   ========================================================= */
+
+.product-certificates-section {
+    background:
+        radial-gradient(circle at 100% 100%,
+            color-mix(in srgb,
+                var(--accent) 4.5%,
+                transparent),
+            transparent 30%);
+}
+
+.certification-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+.certification-card {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 24px;
+
+    background: var(--surface);
+
+    box-shadow:
+        var(--shadow-soft);
+
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.certification-card:hover {
+    transform:
+        translateY(-4px);
+
+    border-color:
+        color-mix(in srgb,
+            var(--accent) 42%,
+            var(--border));
+
+    box-shadow:
+        var(--shadow-hover);
+}
+
+
+/* =========================================================
+   CERTIFICATE LOGO AREA
+   ========================================================= */
+
+.certification-logo-area {
+    width: 100%;
+    min-height: 270px;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+
+    padding: 0;
+    overflow: hidden;
+}
+
+.certification-logo-area .logo-frame {
+    width: 100%;
+    min-height: 270px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 34px;
+
+    border: 0;
+    border-radius: 0;
+
+    box-shadow: none;
+}
+
+.certification-logo-area .logo-frame img {
+    display: block;
+
+    width: auto;
+    max-width: 86%;
+
+    height: auto;
+    max-height: 175px;
+
+    object-fit: contain;
+    object-position: center;
+
+    filter: none !important;
+    opacity: 1;
+}
+
+
+/* =========================================================
+   CERTIFICATE FALLBACK
+   ========================================================= */
+
+.certification-fallback {
+    width: 100%;
+    min-height: 270px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 32px;
+
+    color: var(--text);
+    background: var(--surface);
+
+    font-weight: 700;
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   CERTIFICATE FOOTER
+   ========================================================= */
+
+.certification-card-footer {
+    min-height: 78px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 20px 24px;
+
+    border-top:
+        1px solid var(--border);
+
+    background: var(--surface);
+}
+
+.certification-card-footer span {
+    color: var(--text);
+
+    font-size: 0.92rem;
+    font-weight: 650;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   RTL
+   ========================================================= */
+
+html[dir='rtl'] .product-trust-heading>span {
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+html[dir='rtl'] .product-trust-heading h2 {
+    font-family:
+        var(--font-arabic-heading);
+
+    letter-spacing: 0;
+}
+
+html[dir='rtl'] .product-trust-heading>p {
+    font-family:
+        var(--font-arabic-body);
+
+    line-height: 2;
+}
+
+html[dir='rtl'] .partner-logo-link[href]::after {
+    right: auto;
+    left: 20px;
+}
+
+html[dir='rtl'] .certification-card-footer {
+    text-align: right;
+}
+
+html[dir='rtl'] .certification-card-footer span,
+
+html[dir='rtl'] .certification-fallback {
+    font-family:
+        var(--font-arabic-body);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1120px) {
+    .partner-logo-grid {
+        grid-template-columns:
+            repeat(3,
+                minmax(0, 1fr));
+    }
+
+    .certification-grid {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+}
+
+
+@media (max-width: 900px) {
+    .partner-logo-grid {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+
+    .brand-marquee-item {
+        width: 190px;
+        min-width: 190px;
+        max-width: 190px;
+
+        height: 124px;
+        min-height: 124px;
+        max-height: 124px;
+
+        flex-basis: 190px;
+    }
+
+    .brand-marquee-item .logo-frame {
+        height: 124px;
+        min-height: 124px;
+    }
+
+    .brand-marquee-item .logo-frame img {
+        max-height: 72px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+    .product-trust-heading {
+        margin-bottom: 46px;
+    }
+
+    .product-trust-heading h2 {
+        font-size:
+            clamp(2.1rem,
+                10vw,
+                3.4rem);
+
+        line-height: 1.06;
+    }
+
+    html[dir='rtl'] .product-trust-heading h2 {
+        line-height: 1.35;
+    }
+
+    .product-trust-heading>p {
+        margin-top: 22px;
+    }
+
+    .partner-logo-grid {
+        gap: 12px;
+    }
+
+    .partner-logo-link,
+    .partner-logo-link .logo-frame {
+        min-height: 150px;
+
+        border-radius: 18px;
+    }
+
+    .partner-logo-link .logo-frame img {
+        max-height: 76px;
+    }
+
+    .brand-marquee-shell,
+    .brand-marquee-track {
+        gap: 12px;
+    }
+
+    .brand-marquee-item {
+        width: 158px;
+        min-width: 158px;
+        max-width: 158px;
+
+        height: 108px;
+        min-height: 108px;
+        max-height: 108px;
+
+        flex-basis: 158px;
+    }
+
+    .brand-marquee-item .logo-frame {
+        height: 108px;
+        min-height: 108px;
+
+        border-radius: 16px;
+    }
+
+    .brand-marquee-item .logo-frame img {
+        max-height: 62px;
+    }
+
+    .certification-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .certification-logo-area,
+    .certification-logo-area .logo-frame,
+    .certification-fallback {
+        min-height: 220px;
+    }
+
+    .certification-logo-area .logo-frame {
+        padding: 26px;
+    }
+
+    .certification-logo-area .logo-frame img {
+        max-width: 82%;
+        max-height: 145px;
+    }
+
+    .certification-card-footer {
+        min-height: 70px;
+
+        padding: 18px 20px;
+    }
+}
+
+
+@media (max-width: 460px) {
+    .partner-logo-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .partner-logo-link,
+    .partner-logo-link .logo-frame {
+        min-height: 170px;
+    }
+}
+
+
+/* =========================================================
+   BRAND ANIMATION
+   ========================================================= */
+
+@keyframes product-brand-marquee {
+    from {
+        transform:
+            translate3d(0,
+                0,
+                0);
+    }
+
+    to {
+        transform:
+            translate3d(-50%,
+                0,
+                0);
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .brand-marquee-track {
+        animation: none;
+        transform: none;
+    }
+
+    .partner-logo-link,
+    .certification-card {
+        transition: none;
+    }
+
+    .partner-logo-link:hover,
+    .certification-card:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,145 @@
+.not-found-page {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        140px 24px 80px;
+
+    background:
+        var(--page-background);
+}
+
+.not-found-container {
+    width: 100%;
+    max-width: 760px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 22px;
+}
+
+.not-found-code {
+    color: var(--accent);
+
+    font-size:
+        clamp(5rem,
+            13vw,
+            10rem);
+
+    font-weight: 700;
+    line-height: 0.85;
+
+    letter-spacing: -0.06em;
+}
+
+.not-found-container h1 {
+    margin: 0;
+
+    color: var(--text-primary);
+
+    font-size:
+        clamp(2.4rem,
+            5vw,
+            4.8rem);
+
+    line-height: 0.98;
+
+    letter-spacing: -0.045em;
+}
+
+.not-found-container p {
+    max-width: 580px;
+
+    margin: 0;
+
+    color: var(--text-secondary);
+
+    font-size:
+        clamp(1rem,
+            1.4vw,
+            1.15rem);
+
+    line-height: 1.7;
+}
+
+.not-found-actions {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 14px;
+
+    margin-top: 12px;
+}
+
+.not-found-primary,
+.not-found-secondary {
+    min-height: 48px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding:
+        0 20px;
+
+    border-radius: 999px;
+
+    text-decoration: none;
+
+    font-size: 0.92rem;
+    font-weight: 600;
+
+    transition:
+        transform 180ms ease,
+        background 180ms ease,
+        border-color 180ms ease;
+}
+
+.not-found-primary {
+    color: #fff;
+
+    background:
+        var(--accent);
+}
+
+.not-found-secondary {
+    color:
+        var(--text-primary);
+
+    border:
+        1px solid var(--border-strong);
+
+    background:
+        var(--card-background);
+}
+
+.not-found-primary:hover,
+.not-found-secondary:hover {
+    transform:
+        translateY(-2px);
+}
+
+@media (max-width: 650px) {
+    .not-found-page {
+        padding:
+            110px 20px 60px;
+    }
+
+    .not-found-actions {
+        width: 100%;
+
+        flex-direction: column;
+    }
+
+    .not-found-primary,
+    .not-found-secondary {
+        width: 100%;
+    }
+}

@@ -1,0 +1,53 @@
+/* =========================================================
+   SANITARY PRODUCT PAGE
+   Page-specific styling only
+   ========================================================= */
+
+.product-division-page-sanitary .product-overview-media img {
+    object-fit: cover;
+    object-position: center;
+}
+
+.product-division-page-sanitary .product-solution-feature-media {
+    background:
+        color-mix(in srgb,
+            var(--surface) 94%,
+            var(--text));
+}
+
+.product-division-page-sanitary .product-solution-feature-media img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Sanitary photography benefits from a softer,
+   full-frame presentation. */
+
+.product-division-page-sanitary .product-solution-feature-card:hover .product-solution-feature-media img {
+    transform: scale(1.025);
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .product-division-page-sanitary .product-overview-media img,
+    .product-division-page-sanitary .product-solution-feature-media img {
+        object-position: center;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+    .product-division-page-sanitary .product-solution-feature-media img {
+        object-position: center;
+    }
+}

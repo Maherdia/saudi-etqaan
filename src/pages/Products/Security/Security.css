@@ -1,0 +1,124 @@
+/* =========================================================
+   SECURITY PAGE
+   Keep shared ProductDivisionPage sizing identical to Hardware
+   ========================================================= */
+
+.product-division-page-security {
+    width: 100%;
+}
+
+
+/* =========================================================
+   OVERVIEW IMAGE
+   Preserve the image correctly without changing shared layout
+   ========================================================= */
+
+.product-division-page-security .product-overview-media {
+    background: #080c0e;
+}
+
+.product-division-page-security .product-overview-media img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    background: #080c0e;
+}
+
+
+/* =========================================================
+   SOLUTION IMAGE
+   Same card dimensions as Hardware.
+   Only control how Security photos fit inside them.
+   ========================================================= */
+
+.product-division-page-security .product-solution-feature-media {
+    background: #080c0e;
+}
+
+.product-division-page-security .product-solution-feature-media img {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    transform: none;
+
+    background: #080c0e;
+}
+
+
+/* =========================================================
+   REMOVE IMAGE ZOOM
+   ========================================================= */
+
+.product-division-page-security .product-solution-feature-card:hover .product-solution-feature-media img {
+    transform: none;
+}
+
+.product-division-page-security .product-overview-media:hover img {
+    transform: none;
+}
+
+
+/* =========================================================
+   SECURITY COPY
+   Prevent unnecessary internal scrolling while preserving
+   Hardware card dimensions
+   ========================================================= */
+
+.product-division-page-security .product-solution-feature-copy {
+    scrollbar-width: none;
+}
+
+.product-division-page-security .product-solution-feature-copy::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* =========================================================
+   SMALL TEXT ADJUSTMENT
+   Security has more capability text than Hardware,
+   so reduce only the capability copy slightly.
+   Card dimensions stay identical.
+   ========================================================= */
+
+.product-division-page-security .product-solution-feature-capabilities li,
+.product-division-page-security .product-solution-capabilities-list li {
+    font-size: 0.86rem;
+    line-height: 1.42;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .product-division-page-security .product-overview-media img,
+    .product-division-page-security .product-solution-feature-media img {
+        object-position: center;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .product-division-page-security .product-solution-feature-capabilities li,
+    .product-division-page-security .product-solution-capabilities-list li {
+        font-size: 0.82rem;
+    }
+}

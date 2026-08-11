@@ -1,0 +1,460 @@
+/* =========================================================
+   PRODUCT MEDIA
+
+   Shared photography interaction only.
+
+   Image presentation such as object-fit and object-position
+   can still be overridden inside:
+   - Hardware.css
+   - Sanitary.css
+   - Security.css
+   - Technology.css
+   ========================================================= */
+
+
+/* =========================================================
+   CLICKABLE PHOTO BASE
+   ========================================================= */
+
+.product-photo-trigger {
+    position: relative;
+
+    padding: 0;
+
+    color: inherit;
+    background: transparent;
+
+    border: 0;
+    outline: 0;
+
+    font: inherit;
+    text-align: inherit;
+
+    cursor: zoom-in;
+}
+
+.product-photo-trigger:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -4px;
+}
+
+
+/* =========================================================
+   IMAGE BASE
+   ========================================================= */
+
+.product-photo-trigger img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =========================================================
+   PHOTO NUMBER
+   ========================================================= */
+
+.product-photo-index {
+    position: absolute;
+    z-index: 3;
+
+    right: 28px;
+    bottom: 20px;
+
+    color: #ffffff;
+
+    font-size: clamp(3.5rem,
+            6vw,
+            7rem);
+
+    font-weight: 700;
+    line-height: 0.9;
+
+    pointer-events: none;
+
+    opacity: 0.7;
+}
+
+
+/* Overview number sits on the opposite side */
+
+.product-overview-media .product-photo-index {
+    right: auto;
+    left: 24px;
+}
+
+
+/* =========================================================
+   EXPAND BUTTON INDICATOR
+   ========================================================= */
+
+.product-photo-expand-icon {
+    position: absolute;
+    z-index: 4;
+
+    top: 22px;
+    right: 22px;
+
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    color: #ffffff;
+
+    border: 1px solid rgba(255,
+            255,
+            255,
+            0.34);
+
+    border-radius: 50%;
+
+    background:
+        rgba(3,
+            10,
+            12,
+            0.48);
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+
+    font-size: 1rem;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transform:
+        translateY(-6px);
+
+    transition:
+        opacity 200ms ease,
+        transform 200ms ease,
+        background 200ms ease;
+}
+
+.product-photo-trigger:hover .product-photo-expand-icon {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   SOLUTION IMAGE OVERLAY
+   ========================================================= */
+
+.product-solution-feature-media-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(90deg,
+            rgba(4,
+                14,
+                17,
+                0.3) 0%,
+            transparent 26%),
+        linear-gradient(180deg,
+            transparent 60%,
+            rgba(0,
+                0,
+                0,
+                0.5) 100%);
+}
+
+
+/* =========================================================
+   LIGHTBOX
+   ========================================================= */
+
+.product-photo-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        clamp(18px,
+            4vw,
+            64px);
+
+    background:
+        rgba(0,
+            0,
+            0,
+            0.92);
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
+    animation:
+        product-lightbox-enter 200ms ease both;
+}
+
+
+/* =========================================================
+   LIGHTBOX CONTENT
+   ========================================================= */
+
+.product-photo-lightbox-content {
+    width:
+        min(1500px,
+            100%);
+
+    height:
+        min(88vh,
+            1000px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 18px;
+
+    min-width: 0;
+    min-height: 0;
+}
+
+.product-photo-lightbox-content img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    object-fit: contain;
+    object-position: center;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 30px 100px rgba(0,
+            0,
+            0,
+            0.55);
+}
+
+.product-photo-lightbox-content p {
+    flex: 0 0 auto;
+
+    margin: 0;
+
+    color:
+        rgba(255,
+            255,
+            255,
+            0.84);
+
+    font-size: 0.92rem;
+    font-weight: 650;
+
+    line-height: 1.5;
+    text-align: center;
+}
+
+
+/* =========================================================
+   LIGHTBOX CLOSE BUTTON
+   ========================================================= */
+
+.product-photo-lightbox-close {
+    position: fixed;
+    z-index: 2;
+
+    top: 24px;
+    right: 28px;
+
+    width: 48px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    padding: 0;
+
+    color: #ffffff;
+
+    border: 1px solid rgba(255,
+            255,
+            255,
+            0.28);
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,
+            255,
+            255,
+            0.08);
+
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        color 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease,
+        transform 180ms ease;
+}
+
+.product-photo-lightbox-close:hover {
+    color: var(--accent);
+
+    border-color:
+        var(--accent);
+
+    background:
+        rgba(0,
+            0,
+            0,
+            0.42);
+
+    transform:
+        rotate(6deg);
+}
+
+
+/* =========================================================
+   RTL
+   ========================================================= */
+
+html[dir='rtl'] .product-photo-expand-icon {
+    right: auto;
+    left: 22px;
+}
+
+html[dir='rtl'] .product-photo-index {
+    right: auto;
+    left: 28px;
+}
+
+html[dir='rtl'] .product-overview-media .product-photo-index {
+    left: auto;
+    right: 24px;
+}
+
+html[dir='rtl'] .product-photo-lightbox-close {
+    right: auto;
+    left: 28px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+    /*
+     * Whole photo is already clickable,
+     * so the expand icon is unnecessary on mobile.
+     */
+
+    .product-photo-expand-icon {
+        display: none;
+    }
+
+    .product-photo-index {
+        right: 18px;
+        bottom: 16px;
+
+        font-size:
+            clamp(2.7rem,
+                14vw,
+                4rem);
+    }
+
+    .product-overview-media .product-photo-index {
+        right: auto;
+        left: 18px;
+    }
+
+    html[dir='rtl'] .product-photo-index {
+        right: auto;
+        left: 18px;
+    }
+
+    html[dir='rtl'] .product-overview-media .product-photo-index {
+        left: auto;
+        right: 18px;
+    }
+
+    .product-photo-lightbox {
+        padding:
+            72px 14px 24px;
+    }
+
+    .product-photo-lightbox-content {
+        height:
+            calc(100svh - 110px);
+    }
+
+    .product-photo-lightbox-content img {
+        border-radius: 12px;
+    }
+
+    .product-photo-lightbox-close {
+        top: 16px;
+        right: 16px;
+
+        width: 44px;
+        height: 44px;
+    }
+
+    html[dir='rtl'] .product-photo-lightbox-close {
+        right: auto;
+        left: 16px;
+    }
+}
+
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+@keyframes product-lightbox-enter {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .product-photo-lightbox {
+        animation: none;
+    }
+
+    .product-photo-expand-icon,
+    .product-photo-lightbox-close {
+        transition: none;
+    }
+}

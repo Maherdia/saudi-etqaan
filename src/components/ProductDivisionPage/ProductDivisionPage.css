@@ -1,0 +1,104 @@
+/* =========================================================
+   PRODUCT DIVISION PAGE — SHARED FOUNDATION
+
+   This file owns only:
+   - page foundation
+   - shared container
+   - shared section spacing
+
+   Everything else lives in:
+   - ProductIntro
+   - ProductContent
+   - ProductTrust
+   - ProductMedia
+
+   Division-specific overrides live in:
+   - Hardware.css
+   - Sanitary.css
+   - Security.css
+   - Technology.css
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE ROOT
+   ========================================================= */
+
+.product-division-page {
+    --division-max-width: 1440px;
+    --division-gutter: clamp(20px, 5vw, 80px);
+
+    width: 100%;
+    overflow-x: clip;
+
+    color: var(--text);
+    background: var(--bg);
+}
+
+
+/* =========================================================
+   BOX SIZING
+   ========================================================= */
+
+.product-division-page *,
+.product-division-page *::before,
+.product-division-page *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SHARED CONTAINER
+   ========================================================= */
+
+.product-division-container {
+    width:
+        min(var(--division-max-width),
+            calc(100% - (var(--division-gutter) * 2)));
+
+    margin-inline: auto;
+}
+
+
+/* =========================================================
+   SHARED SECTION
+   ========================================================= */
+
+.product-division-section {
+    position: relative;
+
+    padding:
+        clamp(90px,
+            9vw,
+            145px) 0;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+/* =========================================================
+   ALTERNATE SECTION
+   ========================================================= */
+
+.product-division-section-alt {
+    background:
+        var(--section-background-alt);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+    .product-division-page {
+        --division-gutter:
+            20px;
+    }
+
+    .product-division-section {
+        padding:
+            76px 0;
+    }
+}
