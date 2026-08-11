@@ -249,6 +249,13 @@ export default function SideMenu({
 
   return (
     <div
+      id="site-side-menu"
+      role="region"
+      aria-label={
+        isArabic
+          ? 'قائمة الموقع'
+          : 'Site menu'
+      }
       className={[
         'side-menu',
 

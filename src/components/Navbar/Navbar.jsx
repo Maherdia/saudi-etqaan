@@ -311,7 +311,6 @@ export default function Navbar() {
             }
           />
         </Link>
-
       </header>
 
       <div
@@ -353,6 +352,7 @@ export default function Navbar() {
           aria-expanded={
             menuOpen
           }
+          aria-controls="site-side-menu"
         >
           {menuOpen ? (
             <FiX
