@@ -29,6 +29,9 @@ import mepImage from '../../assets/logos/mep.webp';
 
 import useRevealOnScroll from '../../hooks/useRevealOnScroll';
 
+import ClientsSlider from '../../components/ClientsSlider/ClientsSlider';
+import homeClients from '../../data/homeClients';
+
 import {
     getLocalizedPath,
 } from '../../data/routes';
@@ -536,6 +539,24 @@ export default function Home() {
                     </span>
                 </Link>
             </section>
+            <ClientsSlider
+                clients={homeClients}
+                lang={lang}
+                content={{
+                    title: {
+                        en: 'Trusted by leading organizations across Saudi Arabia',
+                        ar: 'ثقة كبرى الجهات والمؤسسات في المملكة',
+                    },
+
+                    description: {
+                        en:
+                            'Our experience spans government, energy, infrastructure, hospitality, aviation, healthcare, and major development projects across the Kingdom.',
+
+                        ar:
+                            'تمتد خبراتنا عبر القطاعات الحكومية والطاقة والبنية التحتية والضيافة والطيران والرعاية الصحية والمشاريع الكبرى في مختلف أنحاء المملكة.',
+                    },
+                }}
+            />
         </main>
     );
 }

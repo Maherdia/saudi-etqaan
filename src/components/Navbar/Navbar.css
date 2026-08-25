@@ -16,6 +16,9 @@
   padding: 30px 4vw;
 
   pointer-events: none;
+
+  /* Keep navbar physical layout fixed in EN + AR */
+  direction: ltr;
 }
 
 /* =========================================================
@@ -30,6 +33,8 @@
 
   opacity: 1;
   visibility: visible;
+
+  direction: ltr;
 
   transition:
     opacity 220ms ease,
@@ -65,22 +70,25 @@
 /* =========================================================
    FLOATING HEADER CONTROLS
 
-   Keep the viewport-fixed controls outside the absolutely
-   positioned site header. This avoids mobile browser
-   compositing bugs where fixed descendants can temporarily
-   appear to drift during long or fast scrolling.
+   These remain physically on the right in both EN and AR.
    ========================================================= */
 
 .site-floating-controls {
   position: fixed;
   top: 40px;
+
   right: 3vw;
+  left: auto;
+
   z-index: 1500;
 
   display: flex;
+  flex-direction: row;
   align-items: center;
 
   gap: 27px;
+
+  direction: ltr;
 
   pointer-events: none;
 }
@@ -117,6 +125,8 @@
 
   cursor: pointer;
   pointer-events: auto;
+
+  direction: ltr;
 
   transition:
     color 220ms ease,
@@ -174,19 +184,34 @@
 }
 
 /* =========================================================
-   RTL
+   RTL OVERRIDE
+
+   Page content can be RTL, navbar stays physically LTR.
    ========================================================= */
 
+html[dir='rtl'] .site-header {
+  direction: ltr;
+}
+
+html[dir='rtl'] .site-brand {
+  direction: ltr;
+}
+
 html[dir='rtl'] .site-brand img {
-  object-position:
-    right center;
+  object-position: left center;
 }
 
 html[dir='rtl'] .site-floating-controls {
-  right: auto;
-  left: 4vw;
+  right: 3vw;
+  left: auto;
 
-  flex-direction: row-reverse;
+  flex-direction: row;
+  direction: ltr;
+}
+
+html[dir='rtl'] .language-toggle,
+html[dir='rtl'] .site-menu-trigger {
+  direction: ltr;
 }
 
 /* =========================================================
@@ -210,14 +235,18 @@ html[dir='rtl'] .site-floating-controls {
 
   .site-floating-controls {
     top: 27px;
+
     right: 28px;
+    left: auto;
 
     gap: 25px;
   }
 
   html[dir='rtl'] .site-floating-controls {
-    right: auto;
-    left: 28px;
+    right: 28px;
+    left: auto;
+
+    flex-direction: row;
   }
 
   .site-menu-trigger svg {
@@ -243,16 +272,20 @@ html[dir='rtl'] .site-floating-controls {
 
   .site-floating-controls {
     top:
-      max(23px, env(safe-area-inset-top));
+      max(23px,
+        env(safe-area-inset-top));
 
     right: 20px;
+    left: auto;
 
     gap: 18px;
   }
 
   html[dir='rtl'] .site-floating-controls {
-    right: auto;
-    left: 20px;
+    right: 20px;
+    left: auto;
+
+    flex-direction: row;
   }
 
   .language-toggle {
@@ -277,13 +310,16 @@ html[dir='rtl'] .site-floating-controls {
 
   .site-floating-controls {
     right: 18px;
+    left: auto;
 
     gap: 15px;
   }
 
   html[dir='rtl'] .site-floating-controls {
-    right: auto;
-    left: 18px;
+    right: 18px;
+    left: auto;
+
+    flex-direction: row;
   }
 
   .site-menu-trigger svg {
