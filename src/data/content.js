@@ -47,7 +47,7 @@ export const companies = [
                 'أعمال خشبية معمارية مخصصة، وأبواب خشبية، ونجارة، وأثاث، وتصنيع داخلي فاخر للمشاريع السكنية والتجارية.',
         },
 
-        website: 'https://REPLACE-WITH-WOOD-HOUSE-WEBSITE.com',
+        website: 'https://whfactories.com/',
     },
 
     {

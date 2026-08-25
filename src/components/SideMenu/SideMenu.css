@@ -73,6 +73,10 @@
     display: flex;
     flex-direction: column;
 
+    /* Keep the physical menu layout identical in EN and AR. */
+    direction: ltr;
+    text-align: left;
+
     padding:
         46px 5vw 38px;
 
@@ -85,25 +89,23 @@
     box-shadow:
         var(--menu-shadow);
 
-    transform:
-        translateX(100%);
+    opacity: 0;
+    transform: none;
 
     transition:
-        transform 520ms cubic-bezier(0.22,
-            1,
-            0.36,
-            1),
-        opacity 320ms ease;
+        opacity 180ms ease;
 }
 
 .side-menu-open .side-menu-panel {
-    transform:
-        translateX(0);
+    opacity: 1;
+    transform: none;
 }
 
 .side-menu-open.side-menu-products-visible .side-menu-panel {
     transform:
         translateX(calc(-1 * var(--side-menu-products-width)));
+
+    transition: none;
 }
 
 /* =========================================================
@@ -112,6 +114,13 @@
 
 .side-menu-header {
     flex: 0 0 auto;
+
+    /*
+     * Reserve clear space below the fixed language/menu controls.
+     * This prevents the small company label from overlapping EN/AR
+     * or the close button in either language.
+     */
+    padding-top: 46px;
 }
 
 .side-menu-header p {
@@ -183,8 +192,7 @@
     cursor: pointer;
 
     transition:
-        color 220ms ease,
-        transform 220ms ease;
+        color 220ms ease;
 }
 
 .side-menu-group>a:hover,
@@ -192,9 +200,6 @@
 .side-menu-products-trigger:hover,
 .side-menu-products-trigger.active {
     color: var(--accent);
-
-    transform:
-        translateX(6px);
 }
 
 .side-menu-label {
@@ -649,6 +654,10 @@ html[dir='rtl'] .side-menu-theme-switch {
     overflow-y: auto;
     overscroll-behavior: contain;
 
+    /* Keep product columns in the same physical order in EN and AR. */
+    direction: ltr;
+    text-align: left;
+
     padding:
         46px 48px 44px;
 
@@ -840,45 +849,57 @@ html[dir='rtl'] .side-menu-theme-switch {
 
 /* =========================================================
    RTL
+
+   Arabic changes the language and text direction only.
+   The physical menu layout, arrows, columns and controls
+   stay in exactly the same positions as English.
    ========================================================= */
 
-html[dir='rtl'] .side-menu-panel {
-    right: auto;
-    left: 0;
+html[dir='rtl'] .side-menu-panel,
+html[dir='rtl'] .side-menu-products-panel {
+    direction: ltr;
+    text-align: left;
+}
 
-    border-right:
+/* Keep both panels physically anchored to the right. */
+html[dir='rtl'] .side-menu-panel {
+    right: 0;
+    left: auto;
+
+    border-left:
         1px solid var(--border);
 
-    border-left: 0;
+    border-right: 0;
 
-    transform:
-        translateX(-100%);
+    transform: none;
 }
 
 html[dir='rtl'] .side-menu-open .side-menu-panel {
-    transform:
-        translateX(0);
+    opacity: 1;
+    transform: none;
 }
 
 html[dir='rtl'] .side-menu-open.side-menu-products-visible .side-menu-panel {
     transform:
-        translateX(var(--side-menu-products-width));
+        translateX(calc(-1 * var(--side-menu-products-width)));
+
+    transition: none;
 }
 
 html[dir='rtl'] .side-menu-products-panel {
-    right: auto;
-    left: 0;
+    right: 0;
+    left: auto;
 
-    border-right:
+    border-left:
         1px solid var(--border);
 
-    border-left: 0;
+    border-right: 0;
 
     box-shadow:
-        var(--menu-shadow-rtl);
+        var(--menu-shadow);
 
     transform:
-        translateX(-100%);
+        translateX(100%);
 }
 
 html[dir='rtl'] .side-menu-products-visible .side-menu-products-panel {
@@ -886,42 +907,51 @@ html[dir='rtl'] .side-menu-products-visible .side-menu-products-panel {
         translateX(0);
 }
 
-html[dir='rtl'] .side-menu-group>a:hover,
-html[dir='rtl'] .side-menu-group>a.active,
-html[dir='rtl'] .side-menu-products-trigger:hover,
-html[dir='rtl'] .side-menu-products-trigger.active {
-    transform:
-        translateX(-6px);
+/*
+ * Preserve the exact English geometry of all layout containers.
+ * This prevents grid columns, icons, arrows, search controls and
+ * product groups from swapping sides when <html dir="rtl"> is set.
+ */
+html[dir='rtl'] .side-menu-navigation,
+html[dir='rtl'] .side-menu-group,
+html[dir='rtl'] .side-menu-group>a,
+html[dir='rtl'] .side-menu-products-trigger,
+html[dir='rtl'] .side-menu-tools,
+html[dir='rtl'] .side-menu-search-box,
+html[dir='rtl'] .side-menu-search-results,
+html[dir='rtl'] .side-menu-search-results-header,
+html[dir='rtl'] .side-menu-search-results-list,
+html[dir='rtl'] .side-menu-search-results-list a,
+html[dir='rtl'] .side-menu-products-header,
+html[dir='rtl'] .side-menu-products-back,
+html[dir='rtl'] .side-menu-products-navigation,
+html[dir='rtl'] .side-menu-product-division,
+html[dir='rtl'] .side-menu-product-division-title,
+html[dir='rtl'] .side-menu-product-list,
+html[dir='rtl'] .side-menu-theme-switch {
+    direction: ltr;
 }
 
-html[dir='rtl'] .side-menu-arrow {
-    transform:
-        scaleX(-1);
+/*
+ * The Arabic copy itself is RTL, but it remains in the same
+ * physical text position occupied by the English copy.
+ */
+html[dir='rtl'] .side-menu-header p,
+html[dir='rtl'] .side-menu-label,
+html[dir='rtl'] .side-menu-search-results-header span,
+html[dir='rtl'] .side-menu-search-results-list a span,
+html[dir='rtl'] .side-menu-search-results-list a strong,
+html[dir='rtl'] .side-menu-search-empty,
+html[dir='rtl'] .side-menu-product-division-title span,
+html[dir='rtl'] .side-menu-product-list a {
+    direction: rtl;
+    text-align: left;
+    unicode-bidi: isolate;
 }
 
-html[dir='rtl'] .side-menu-group>a:hover .side-menu-arrow,
-html[dir='rtl'] .side-menu-group>a.active .side-menu-arrow {
-    transform:
-        scaleX(-1) translate(3px, -3px);
-}
-
-html[dir='rtl'] .side-menu-products-trigger:hover .side-menu-direction-arrow,
-html[dir='rtl'] .side-menu-products-trigger.active .side-menu-direction-arrow {
-    transform:
-        translateX(-4px);
-}
-
-html[dir='rtl'] .side-menu-products-back:hover {
-    transform:
-        translateX(4px);
-}
-
-html[dir='rtl'] .side-menu-product-division-title:hover,
-html[dir='rtl'] .side-menu-product-division-title.active,
-html[dir='rtl'] .side-menu-product-list a:hover,
-html[dir='rtl'] .side-menu-product-list a.active {
-    transform:
-        translateX(-4px);
+html[dir='rtl'] .side-menu-search-box input {
+    direction: rtl;
+    text-align: left;
 }
 
 html[dir='rtl'] .side-menu-header p,
@@ -929,6 +959,44 @@ html[dir='rtl'] .side-menu-search-results-header span,
 html[dir='rtl'] .side-menu-search-results-list a span {
     letter-spacing: 0;
     text-transform: none;
+}
+
+html[dir='rtl'] .side-menu-label,
+html[dir='rtl'] .side-menu-product-division-title span {
+    letter-spacing: 0;
+}
+
+/*
+ * Keep arrow/icon orientation and hover movement identical to English.
+ * Only the label text changes language.
+ */
+html[dir='rtl'] .side-menu-arrow {
+    transform: none;
+}
+
+html[dir='rtl'] .side-menu-group>a:hover .side-menu-arrow,
+html[dir='rtl'] .side-menu-group>a.active .side-menu-arrow {
+    transform:
+        translate(3px, -3px);
+}
+
+html[dir='rtl'] .side-menu-products-trigger:hover .side-menu-direction-arrow,
+html[dir='rtl'] .side-menu-products-trigger.active .side-menu-direction-arrow {
+    transform:
+        translateX(4px);
+}
+
+html[dir='rtl'] .side-menu-products-back:hover {
+    transform:
+        translateX(-4px);
+}
+
+html[dir='rtl'] .side-menu-product-division-title:hover,
+html[dir='rtl'] .side-menu-product-division-title.active,
+html[dir='rtl'] .side-menu-product-list a:hover,
+html[dir='rtl'] .side-menu-product-list a.active {
+    transform:
+        translateX(4px);
 }
 
 /* =========================================================
@@ -1011,7 +1079,7 @@ html[dir='rtl'] .side-menu-search-results-list a span {
 
     html[dir='rtl'] .side-menu-open.side-menu-products-visible .side-menu-panel {
         transform:
-            translateX(18%);
+            translateX(-18%);
     }
 
     .side-menu-navigation {
