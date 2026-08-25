@@ -36,7 +36,9 @@ const currentFile =
     );
 
 const currentDirectory =
-    dirname(currentFile);
+    dirname(
+        currentFile,
+    );
 
 const projectRoot =
     join(
@@ -59,6 +61,10 @@ const PORT =
 const BASE_URL =
     `http://${HOST}:${PORT}`;
 
+/* =========================================================
+   OUTPUT PATH
+   ========================================================= */
+
 function getOutputPath(route) {
     if (route === '/') {
         return join(
@@ -79,6 +85,51 @@ function getOutputPath(route) {
         'index.html',
     );
 }
+
+/* =========================================================
+   NORMALIZE PRERENDERED HTML
+
+   Vite dynamically injects route CSS/modulepreload links using
+   the temporary prerender server origin:
+
+       http://127.0.0.1:4174/assets/...
+
+   That server is shut down after prerendering. If those absolute
+   development URLs are written into dist HTML, browsers later
+   request assets from a dead localhost server.
+
+   Convert those temporary URLs to root-relative production URLs:
+
+       /assets/...
+
+   This also keeps route-specific CSS available immediately,
+   preventing a flash of unstyled prerendered content.
+   ========================================================= */
+
+function normalizePrerenderedHtml(
+    html,
+) {
+    const temporaryOrigins = [
+        `http://${HOST}:${PORT}`,
+        `http://localhost:${PORT}`,
+    ];
+
+    return temporaryOrigins.reduce(
+        (
+            normalizedHtml,
+            origin,
+        ) =>
+            normalizedHtml.replaceAll(
+                `${origin}/`,
+                '/',
+            ),
+        html,
+    );
+}
+
+/* =========================================================
+   PREPARE PAGE
+   ========================================================= */
 
 async function preparePage(
     page,
@@ -131,6 +182,10 @@ async function preparePage(
         );
     }
 
+    /* ---------------------------------------------------------
+       Wait for routed React content
+       --------------------------------------------------------- */
+
     await page.waitForFunction(
         () => {
             const root =
@@ -156,6 +211,10 @@ async function preparePage(
         },
     );
 
+    /* ---------------------------------------------------------
+       Wait for correct EN / AR document state
+       --------------------------------------------------------- */
+
     const expectedLocale =
         getLanguageFromPath(
             route,
@@ -163,14 +222,27 @@ async function preparePage(
 
     await page.waitForFunction(
         locale =>
-            document.documentElement.lang === locale &&
-            document.documentElement.dir === (locale === 'ar' ? 'rtl' : 'ltr'),
+            document
+                .documentElement
+                .lang === locale &&
+            document
+                .documentElement
+                .dir ===
+            (
+                locale === 'ar'
+                    ? 'rtl'
+                    : 'ltr'
+            ),
         expectedLocale,
         {
             timeout:
                 10000,
         },
     );
+
+    /* ---------------------------------------------------------
+       Wait for SEO metadata
+       --------------------------------------------------------- */
 
     await page.waitForFunction(
         () => {
@@ -189,12 +261,14 @@ async function preparePage(
 
             return Boolean(
                 title &&
-                description?.getAttribute(
-                    'content',
-                ) &&
-                canonical?.getAttribute(
-                    'href',
-                ),
+                description
+                    ?.getAttribute(
+                        'content',
+                    ) &&
+                canonical
+                    ?.getAttribute(
+                        'href',
+                    ),
             );
         },
         {
@@ -202,7 +276,36 @@ async function preparePage(
                 10000,
         },
     );
+
+    /* ---------------------------------------------------------
+       Make sure dynamically loaded stylesheets are registered
+       before serializing the page.
+       --------------------------------------------------------- */
+
+    await page.waitForFunction(
+        () =>
+            Array.from(
+                document.styleSheets,
+            ).every(
+                styleSheet =>
+                    !styleSheet.href ||
+                    styleSheet.href.includes(
+                        '/assets/',
+                    ) ||
+                    !styleSheet.href.startsWith(
+                        window.location.origin,
+                    ),
+            ),
+        {
+            timeout:
+                10000,
+        },
+    );
 }
+
+/* =========================================================
+   PRERENDER ROUTE
+   ========================================================= */
 
 async function prerenderRoute(
     browser,
@@ -217,8 +320,13 @@ async function prerenderRoute(
             route,
         );
 
-        const html =
+        const rawHtml =
             await page.content();
+
+        const html =
+            normalizePrerenderedHtml(
+                rawHtml,
+            );
 
         const outputPath =
             getOutputPath(
@@ -230,7 +338,8 @@ async function prerenderRoute(
                 outputPath,
             ),
             {
-                recursive: true,
+                recursive:
+                    true,
             },
         );
 
@@ -248,6 +357,10 @@ async function prerenderRoute(
     }
 }
 
+/* =========================================================
+   PRERENDER 404
+   ========================================================= */
+
 async function prerender404(
     browser,
 ) {
@@ -260,8 +373,13 @@ async function prerender404(
             NOT_FOUND_PATH,
         );
 
-        const html =
+        const rawHtml =
             await page.content();
+
+        const html =
+            normalizePrerenderedHtml(
+                rawHtml,
+            );
 
         const outputPath =
             join(
@@ -282,6 +400,10 @@ async function prerender404(
         await page.close();
     }
 }
+
+/* =========================================================
+   RUN
+   ========================================================= */
 
 async function run() {
     let server = null;
@@ -311,7 +433,10 @@ async function run() {
                     true,
             });
 
-        for (const route of prerenderRoutes) {
+        for (
+            const route
+            of prerenderRoutes
+        ) {
             await prerenderRoute(
                 browser,
                 route.path,
@@ -337,20 +462,24 @@ async function run() {
         if (server) {
             await new Promise(
                 resolve => {
-                    server.httpServer.close(
-                        resolve,
-                    );
+                    server
+                        .httpServer
+                        .close(
+                            resolve,
+                        );
                 },
             );
         }
     }
 }
 
-run().catch(error => {
-    console.error(
-        '\nPrerender failed:',
-        error,
-    );
+run().catch(
+    error => {
+        console.error(
+            '\nPrerender failed:',
+            error,
+        );
 
-    process.exitCode = 1;
-});
+        process.exitCode = 1;
+    },
+);
